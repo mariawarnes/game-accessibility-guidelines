@@ -666,10 +666,10 @@ function buildEvidence() {
         <thead><tr><th scope="col">Guideline</th><th scope="col">Status</th><th scope="col">Evidence</th><th scope="col">Source</th></tr></thead>
         <tbody>${known.map(([id, name]) => {
           const rec = row.e[id];
-          return `<tr><th scope="row">${id} ${name}</th><td class="st st-${rec.s}">${STATUS[rec.s]}</td><td>${rec.t}</td><td><a href="#src-${idSlug}-${rec.src}">[${rec.src + 1}]</a></td></tr>`;
+          return `<tr><th scope="row"><a href="index.html#sc-${id.replace(".", "-")}">${id} ${name}</a></th><td class="st st-${rec.s}">${STATUS[rec.s]}</td><td>${rec.t}</td><td><a href="#src-${idSlug}-${rec.src}">[${rec.src + 1}]</a></td></tr>`;
         }).join("")}</tbody>
       </table></div>` : `<p>No sourced evidence found for any guideline on this platform.</p>`}
-      <p class="unknown-list"><strong>Unknown (${unknown.length}):</strong> ${unknown.join(", ")}</p>
+      <p class="unknown-list"><strong>Unknown (${unknown.length}):</strong> ${unknown.map(id => `<a href="index.html#sc-${id.replace(".", "-")}">${id}</a>`).join(", ")}</p>
       ${row.sources.length ? `<p><strong>Sources</strong></p><ol class="sources">${
         row.sources.map(([label, url], i) => `<li id="src-${idSlug}-${i}"><a href="${url}">${label}</a></li>`).join("")
       }</ol>` : ""}`;
