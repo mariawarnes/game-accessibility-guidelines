@@ -76,6 +76,8 @@
   }
   .rank { color: var(--muted); text-align: right; }
   .name { font-weight: 600; }
+  .platform-tag { display: inline-block; font-size: .72rem; font-weight: 600; color: var(--muted); border: 1px solid var(--line); border-radius: 3px; padding: 0 .35rem; margin-left: .35rem; vertical-align: 1px; white-space: nowrap; }
+  .platforms-line { color: var(--muted); font-size: .95rem; }
   .track { display: flex; height: 1.1rem; background: var(--panel); }
   .seg-met  { background: var(--met); }
   .seg-part { background: repeating-linear-gradient(45deg, var(--part) 0 3px, transparent 3px 6px); }
@@ -117,7 +119,7 @@
 </nav>
 
 <main id="main">
-  <p>Each game is checked against the 50 guidelines. Choose an access need to re-rank the games.</p>
+  <p>Each game is checked against the 50 guidelines. Choose an access need to re-rank the games, or filter by platform.</p>
 
   <div class="notice" role="note">
     <p><strong>How scoring works</strong></p>
@@ -127,6 +129,7 @@
       <li><strong>Unknown</strong> means no source was found. It does not mean the feature is missing.</li>
       <li>The score is a verified minimum. Games with lots of unknowns may score higher once checked.</li>
       <li><strong>Coverage</strong> shows how much of the checklist has evidence. Under 25% is flagged.</li>
+      <li><strong>Platform</strong> shows where a game is available. Accessibility features aren't guaranteed to match across platforms — check the evidence column for platform-specific notes (e.g. "PC only").</li>
       <li>Sources were checked on 29 September 2026. Older sources are dated so you can judge them.</li>
     </ul>
   </div>
@@ -136,6 +139,11 @@
   <fieldset class="filter">
     <legend>Access need</legend>
     <div class="chips" id="filters"></div>
+  </fieldset>
+
+  <fieldset class="filter">
+    <legend>Platform</legend>
+    <div class="chips" id="platform-filters"></div>
   </fieldset>
 
   <ul class="legend" aria-label="Chart key">
@@ -180,6 +188,7 @@ const STATUS = { Y: "Met", P: "Partial", N: "Missing", NA: "Not applicable" };
 // e: { criterion: [status, evidence, sourceIndex] }
 const games = [
 { name: "Forza Horizon 6",
+  platforms: ["PC", "Xbox"],
   sources: [
     ["Forza Support: FH6 Accessibility Support (May 2026)", "https://support.forza.net/hc/en-us/articles/51644264237075-Forza-Horizon-6-Accessibility-Support"],
     ["GameAccess by SpecialEffect: FH6 motor accessibility (Jun 2026)", "https://gameaccess.info/forza-horizon-6-motor-accessibility/"]
@@ -210,6 +219,7 @@ const games = [
     "9.2": ["Y","Official accessibility support page",0]
   }},
 { name: "Resident Evil Requiem",
+  platforms: ["PC", "PlayStation", "Xbox"],
   sources: [
     ["Can I Play That?: RE Requiem accessibility review (May 2026)", "https://caniplaythat.com/2026/05/11/resident-evil-requiem-accessibility-review/"],
     ["Victor Dima: accessibility review, blind reviewer (Feb 2026)", "https://victordima.net/accessibility-review-resident-evil-requiem-ps5-pro/"],
@@ -243,6 +253,7 @@ const games = [
     "9.1": ["P","First boot highlights presets but can't apply them yet",2]
   }},
 { name: "Fortnite",
+  platforms: ["PC", "PlayStation", "Xbox", "Switch", "Mobile"],
   sources: [
     ["Epic Games Help: accessibility settings", "https://www.epicgames.com/help/c-202300000001636/c-202300000001721/are-there-any-accessibility-settings-for-fortnite-a202300000015585"],
     ["Can I Play That?: menu deep dive (Apr 2022)", "https://caniplaythat.com/2022/04/26/fortnite-accessibility-menu-deep-dive/"],
@@ -268,6 +279,7 @@ const games = [
     "7.3": ["P","Zero Build mode removes the building mechanic",2]
   }},
 { name: "Minecraft (Bedrock)",
+  platforms: ["PC", "PlayStation", "Xbox", "Switch", "Mobile"],
   sources: [
     ["Minecraft.net: accessibility", "https://www.minecraft.net/en-us/accessibility"],
     ["Can I Play That?: Bedrock gets captions (Jul 2026)", "https://caniplaythat.com/?p=17995"]
@@ -282,6 +294,7 @@ const games = [
     "2.8": ["Y","Adjustable audio channels",0]
   }},
 { name: "Roblox (platform only)",
+  platforms: ["PC", "Xbox", "Mobile"],
   sources: [
     ["Can I Play That?: Roblox global text size (Aug 2025)", "https://caniplaythat.com/2025/08/27/roblox-introduces-global-text-size-accessibility-setting/"],
     ["Roblox Creator Hub: accessibility guidelines (Jun 2026)", "https://create.roblox.com/docs/en-us/production/publishing/accessibility"]
@@ -292,9 +305,11 @@ const games = [
     "4.2": ["P","Reduce motion setting for UI animation; developers must support it",1]
   }},
 { name: "Counter-Strike 2",
+  platforms: ["PC"],
   sources: [],
   e: {}},
 { name: "Street Fighter 6",
+  platforms: ["PC", "PlayStation", "Xbox"],
   sources: [
     ["Can I Play That?: SF6 accessibility review (2023)", "https://caniplaythat.com/?p=12195"],
     ["Automaton: SF6 blind accessibility with ePARA (May 2023)", "https://automaton-media.com/en/news/20230502-18743/"]
@@ -308,6 +323,7 @@ const games = [
     "6.3": ["Y","Fully customisable HUD",0]
   }},
 { name: "World of Warcraft",
+  platforms: ["PC", "Mac"],
   sources: [
     ["Blizzard: accessibility updates in 9.1 (2021)", "https://news.blizzard.com/en-us/article/23691035/enhance-your-gameplay-accessibility-updates-now-live"],
     ["Family Gaming Database: WoW (c. 2024)", "https://www.familygamingdatabase.com/accessibility/World+of+Warcraft"],
@@ -326,6 +342,7 @@ const games = [
     "8.1": ["Y","Voice chat transcription, chat narration, and Speak for Me",0]
   }},
 { name: "Apex Legends",
+  platforms: ["PC", "PlayStation", "Xbox", "Switch"],
   sources: [
     ["EA Accessibility Portal: Apex features (PC)", "https://ea.com/able/resources/apex-legends/pc/features"],
     ["EA Accessibility Portal: Apex overview (PC)", "https://ea.com/able/resources/apex-legends/pc"],
@@ -342,6 +359,7 @@ const games = [
     "9.2": ["Y","Published accessibility documentation",1]
   }},
 { name: "Call of Duty: Black Ops 7",
+  platforms: ["PC", "PlayStation", "Xbox"],
   sources: [
     ["Call of Duty blog: BO7 accessibility features (Nov 2025)", "https://www.callofduty.com/ca/en/blog/2025/11/call-of-duty-black-ops-7-accessibility-features-settings"]
   ],
@@ -360,6 +378,7 @@ const games = [
     "9.2": ["Y","Published accessibility feature list",0]
   }},
 { name: "Overwatch 2",
+  platforms: ["PC", "PlayStation", "Xbox", "Switch"],
   sources: [
     ["Family Gaming Database: Overwatch 2", "https://www.familygamingdatabase.com/accessibility/Overwatch+2"],
     ["Blizzard Watch: Overwatch subtitles (2019)", "https://blizzardwatch.com/2019/06/25/how-will-subtitles-change-overwatch-accessibility/"]
@@ -373,6 +392,7 @@ const games = [
     "8.1": ["Y","Text-to-speech, speech-to-text and ping system",0]
   }},
 { name: "Valorant",
+  platforms: ["PC", "PlayStation", "Xbox"],
   sources: [
     ["Family Gaming Database: Valorant (c. 2025)", "https://www.familygamingdatabase.com/accessibility/Valorant"]
   ],
@@ -387,6 +407,7 @@ const games = [
     "8.1": ["P","Ping system, but no text-to-speech or speech-to-text",0]
   }},
 { name: "League of Legends",
+  platforms: ["PC"],
   sources: [
     ["Can I Play That?: LoL champion sound notifications (Oct 2023)", "https://caniplaythat.com/2023/10/04/recent-accessibility-updates-league-of-legends-and-world-of-warcraft/"]
   ],
@@ -394,6 +415,7 @@ const games = [
     "2.6": ["P","Visual notifications for global sound effects",0]
   }},
 { name: "Marvel Rivals",
+  platforms: ["PC", "PlayStation", "Xbox"],
   sources: [
     ["PlayStation Store: accessibility tags", "https://store.playstation.com/en-fi/concept/10010451"],
     ["Two Average Gamers: hearing accessibility guide (2025)", "https://www.twoaveragegamers.com/playing-marvel-rivals-with-hearing-difficulties-your-complete-visual-audio-guide/"],
@@ -411,6 +433,7 @@ const games = [
     "7.1": ["P","Practice mode",0]
   }},
 { name: "Baldur's Gate 3",
+  platforms: ["PC", "PlayStation", "Xbox", "Mac"],
   sources: [
     ["Can I Play That?: BG3 accessibility review (Aug 2023)", "https://caniplaythat.com/2023/08/31/baldurs-gate-3-accessibility-review/"],
     ["Can I Play That?: BG3 patch articles (2023–2024)", "https://caniplaythat.com/games/baldurs-gate-3/"],
@@ -429,6 +452,7 @@ const games = [
     "7.2": ["Y","Custom difficulty (Patch 5)",1]
   }},
 { name: "Rocket League",
+  platforms: ["PC", "PlayStation", "Xbox", "Switch"],
   sources: [
     ["Family Gaming Database: Rocket League (Sep 2026)", "https://www.familygamingdatabase.com/accessibility/Rocket+League"]
   ],
@@ -442,6 +466,7 @@ const games = [
     "7.3": ["Y","Mutators: slow motion, time warp, slower ball, bigger ball",0]
   }},
 { name: "Genshin Impact",
+  platforms: ["PC", "PlayStation", "Mobile"],
   sources: [
     ["Family Gaming Database: Genshin Impact (last updated c. 2022)", "https://www.familygamingdatabase.com/accessibility/Genshin+Impact"]
   ],
@@ -451,6 +476,7 @@ const games = [
     "6.2": ["P","On-screen control reminders",0]
   }},
 { name: "PUBG: Battlegrounds",
+  platforms: ["PC", "PlayStation", "Xbox", "Mobile"],
   sources: [
     ["OsloMet master's thesis on deaf players in PUBG (2020)", "https://oda.oslomet.no/handle/10642/9018"]
   ],
@@ -459,6 +485,7 @@ const games = [
     "8.1": ["N","No text chat alternative to voice (as of 2020)",0]
   }},
 { name: "Dota 2",
+  platforms: ["PC"],
   sources: [
     ["Family Gaming Database: Dota 2", "https://www.familygamingdatabase.com/accessibility/DotA+2"]
   ],
@@ -470,6 +497,7 @@ const games = [
     "4.1": ["Y","Top-down view with a mostly static background",0]
   }},
 { name: "Grand Theft Auto V",
+  platforms: ["PC", "PlayStation", "Xbox"],
   sources: [
     ["Family Gaming Database: GTA V (c. 2024)", "https://www.familygamingdatabase.com/accessibility/Grand+Theft+Auto+V"],
     ["Can I Play That?: GTA V articles (2022–2023)", "https://caniplaythat.com/?p=8240"]
@@ -507,29 +535,59 @@ function tally(game, cat) {
 }
 
 // Filters
+const PLATFORMS = ["PC", "PlayStation", "Xbox", "Switch", "Mobile", "Mac"];
+let currentCat = "all";
+const selectedPlatforms = new Set();
+
 const filters = document.getElementById("filters");
 cats.forEach((c, i) => {
   const label = document.createElement("label");
   label.innerHTML = `<input type="radio" name="need" value="${c.id}" ${i === 0 ? "checked" : ""}> ${c.label}`;
   filters.appendChild(label);
 });
-filters.addEventListener("change", e => render(e.target.value));
+filters.addEventListener("change", e => { currentCat = e.target.value; render(); });
 
-function render(cat) {
-  const catLabel = cats.find(c => c.id === cat).label;
-  const rows = games.map(g => ({ g, t: tally(g, cat) }))
+const platformFilters = document.getElementById("platform-filters");
+PLATFORMS.forEach(p => {
+  const label = document.createElement("label");
+  label.innerHTML = `<input type="checkbox" name="platform" value="${p}"> ${p}`;
+  platformFilters.appendChild(label);
+});
+platformFilters.addEventListener("change", e => {
+  if (e.target.checked) selectedPlatforms.add(e.target.value);
+  else selectedPlatforms.delete(e.target.value);
+  render();
+});
+
+function render() {
+  const catLabel = cats.find(c => c.id === currentCat).label;
+  const rows = games
+    .filter(g => selectedPlatforms.size === 0 || g.platforms.some(p => selectedPlatforms.has(p)))
+    .map(g => ({ g, t: tally(g, currentCat) }))
     .filter(r => r.t.applicable > 0)
     .sort((a, b) => b.t.score - a.t.score || b.t.coverage - a.t.coverage || a.g.name.localeCompare(b.g.name));
 
   const chart = document.getElementById("chart");
   chart.innerHTML = "";
+
+  if (rows.length === 0) {
+    const li = document.createElement("li");
+    li.style.gridTemplateColumns = "1fr";
+    li.textContent = "No games match this filter combination.";
+    chart.appendChild(li);
+    document.getElementById("status").textContent =
+      `Ranked by ${catLabel}. No games match the selected platform filter.`;
+    return;
+  }
+
   rows.forEach(({ g, t }, i) => {
     const pct = n => (n / t.applicable * 100) + "%";
     const low = t.coverage < 25;
+    const platformTags = g.platforms.map(p => `<span class="platform-tag">${p}</span>`).join("");
     const li = document.createElement("li");
     li.innerHTML = `
       <span class="rank">${i + 1}</span>
-      <span class="name">${g.name}${low ? `<br><span class="flag">Not enough data</span>` : ""}</span>
+      <span class="name">${g.name}${platformTags}${low ? `<br><span class="flag">Not enough data</span>` : ""}</span>
       <span class="track" aria-hidden="true">
         <span class="seg-met" style="width:${pct(t.Y)}"></span>
         <span class="seg-part" style="width:${pct(t.P)}"></span>
@@ -538,7 +596,7 @@ function render(cat) {
       </span>
       <span class="score">${t.score}<span class="sr"> out of 100</span></span>
       <span class="cov">${t.coverage}% known</span>
-      <span class="sr">${t.Y} met, ${t.P} partial, ${t.N} missing, ${t.U} unknown, out of ${t.applicable} guidelines.</span>`;
+      <span class="sr">${t.Y} met, ${t.P} partial, ${t.N} missing, ${t.U} unknown, out of ${t.applicable} guidelines. Available on ${g.platforms.join(", ")}.</span>`;
     chart.appendChild(li);
   });
 
@@ -557,6 +615,7 @@ function buildEvidence() {
     d.className = "game";
     d.innerHTML = `
       <summary>${g.name} <span>score ${t.score}, ${t.coverage}% known</span></summary>
+      <p class="platforms-line"><strong>Platform:</strong> ${g.platforms.join(", ")}</p>
       ${notes[g.name] ? `<p>${notes[g.name]}</p>` : ""}
       ${known.length ? `
       <div class="table-wrap"><table>
@@ -577,7 +636,7 @@ function buildEvidence() {
 function slug(s) { return s.toLowerCase().replace(/[^a-z0-9]+/g, "-"); }
 
 buildEvidence();
-render("all");
+render();
 </script>
 </body>
 </html>
