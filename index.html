@@ -122,6 +122,66 @@
   }
   figure.shot figcaption a { color: inherit; text-decoration: underline; }
 
+  button.shot-trigger {
+    display: block;
+    padding: 0;
+    border: none;
+    background: none;
+    font: inherit;
+    color: inherit;
+    cursor: zoom-in;
+    text-align: left;
+  }
+  button.shot-trigger img { max-width: 26rem; }
+  .shot-hint {
+    display: inline-block;
+    margin-top: .35rem;
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--blue);
+  }
+  button.shot-trigger:hover .shot-hint,
+  button.shot-trigger:focus-visible .shot-hint { text-decoration: underline; }
+
+  dialog#lightbox {
+    max-width: min(90vw, 60rem);
+    max-height: 90vh;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 1rem;
+    background: var(--bg);
+    color: var(--text);
+  }
+  dialog#lightbox::backdrop { background: rgba(0, 0, 0, .7); }
+  dialog#lightbox .lightbox-head {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 0 .5rem;
+  }
+  dialog#lightbox button.lightbox-close {
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: .3rem .7rem;
+    cursor: pointer;
+    color: var(--text);
+  }
+  dialog#lightbox img {
+    display: block;
+    max-width: 100%;
+    max-height: 70vh;
+    margin: 0 auto;
+  }
+  dialog#lightbox p.lightbox-credit {
+    font-size: .9rem;
+    color: var(--muted);
+    margin: .75rem 0 0;
+  }
+  dialog#lightbox p.lightbox-credit a { color: var(--blue); }
+
   footer {
     border-top: 1px solid var(--line);
     padding: 1.5rem 1.25rem;
@@ -496,5 +556,74 @@
     <a href="https://www.ea.com/able/resources/ea-sports-fc/fc-26">EA Sports FC accessibility</a>.
   </p>
 </footer>
+
+<dialog id="lightbox" aria-label="Enlarged screenshot">
+  <div class="lightbox-head">
+    <button type="button" class="lightbox-close" id="lightbox-close">Close ✕</button>
+  </div>
+  <img id="lightbox-img" src="" alt="">
+  <p class="lightbox-credit" id="lightbox-credit"></p>
+</dialog>
+
+<script>
+(function () {
+  "use strict";
+  var dialog = document.getElementById("lightbox");
+  var dialogImg = document.getElementById("lightbox-img");
+  var dialogCredit = document.getElementById("lightbox-credit");
+  var closeBtn = document.getElementById("lightbox-close");
+  var supportsDialog = typeof dialog.showModal === "function";
+
+  document.querySelectorAll("figure.shot").forEach(function (fig) {
+    var img = fig.querySelector("img");
+    var creditLink = fig.querySelector("figcaption a");
+    if (!img) return;
+
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "shot-trigger";
+    btn.setAttribute("aria-label", (img.alt || "Screenshot") + " — view larger image in a popup");
+
+    img.parentNode.insertBefore(btn, img);
+    btn.appendChild(img);
+
+    var hint = document.createElement("span");
+    hint.className = "shot-hint";
+    hint.setAttribute("aria-hidden", "true");
+    hint.textContent = "View larger";
+    btn.appendChild(hint);
+
+    btn.addEventListener("click", function () {
+      if (!supportsDialog) {
+        window.open(img.src, "_blank", "noopener");
+        return;
+      }
+      dialogImg.src = img.src;
+      dialogImg.alt = img.alt;
+      dialogCredit.textContent = "";
+      if (creditLink) {
+        dialogCredit.append("Credit: ");
+        var a = document.createElement("a");
+        a.href = creditLink.href;
+        a.textContent = creditLink.textContent;
+        dialogCredit.appendChild(a);
+      }
+      dialog.showModal();
+    });
+  });
+
+  if (supportsDialog) {
+    closeBtn.addEventListener("click", function () { dialog.close(); });
+
+    dialog.addEventListener("click", function (e) {
+      if (e.target === dialog) dialog.close();
+    });
+
+    dialog.addEventListener("close", function () {
+      dialogImg.src = "";
+    });
+  }
+})();
+</script>
 </body>
 </html>
