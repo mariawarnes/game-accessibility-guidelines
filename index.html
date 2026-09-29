@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Game Accessibility Guidelines – Barriers and Solutions</title>
+<title>Video Game Accessibility Guidelines (VGAG) – Barriers and Solutions</title>
 <meta name="description" content="A checklist of common game accessibility barriers and the features that solve them.">
 <style>
   :root {
@@ -57,6 +57,10 @@
   @media (prefers-color-scheme: dark) {
     header.site { background: #0b3a61; }
   }
+
+  nav.site { border-bottom: 1px solid var(--line); }
+  nav.site ul { list-style: none; margin: 0 auto; padding: .6rem 1.25rem; display: flex; gap: 1.5rem; max-width: 72rem; }
+  nav.site a[aria-current="page"] { font-weight: 700; text-decoration: none; color: var(--text); }
 
   .wrap {
     max-width: 72rem;
@@ -196,9 +200,16 @@
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="site">
-  <p>Checklist</p>
-  <h1>Game Accessibility Guidelines</h1>
+  <p>Video Game Accessibility Guidelines (VGAG)</p>
+  <h1>Guidelines: Barriers and Solutions</h1>
 </header>
+
+<nav class="site" aria-label="Site">
+  <ul>
+    <li><a href="index.html" aria-current="page">Guidelines</a></li>
+    <li><a href="scores.html">Scores</a></li>
+  </ul>
+</nav>
 
 <div class="wrap">
   <nav class="toc" aria-label="Contents">
