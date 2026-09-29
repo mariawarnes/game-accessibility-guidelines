@@ -105,6 +105,23 @@
   article.sc dd { margin: 0 0 0 0; }
   article.sc ul { margin: .2rem 0 0; padding-left: 1.25rem; }
 
+  figure.shot {
+    margin: .8rem 0 0;
+    padding: 0;
+  }
+  figure.shot img {
+    display: block;
+    width: 100%;
+    max-width: 26rem;
+    border: 1px solid var(--line);
+  }
+  figure.shot figcaption {
+    font-size: .8rem;
+    color: var(--muted);
+    margin-top: .3rem;
+  }
+  figure.shot figcaption a { color: inherit; text-decoration: underline; }
+
   footer {
     border-top: 1px solid var(--line);
     padding: 1.5rem 1.25rem;
@@ -154,12 +171,16 @@
       <article class="sc" id="sc-1-2"><h3><span class="num">1.2</span>Contrast</h3><dl>
         <dt>Barrier</dt><dd>Characters and objects blend into the background.</dd>
         <dt>Solutions</dt><dd><ul><li>High contrast mode: mute the world, colour-code allies, enemies, items and hazards</li><li>Custom colour per category</li><li>Dark backing behind HUD elements</li><li>Crosshair/reticle style, size and colour customisation</li></ul></dd>
-      </dl></article>
+      </dl>
+      <figure class="shot"><img loading="lazy" onerror="this.closest('figure').hidden=true" src="https://media.contentapi.ea.com/content/dam/eacom/ea-accessibility/ea-sports-fc/fc-26/common/fc26-high-contrast-mode.jpg.adapt.320w.jpg" alt="EA Sports FC 26 settings screen showing the High Contrast Mode toggle with a before/after preview of players against the pitch."><figcaption>Credit: <a href="https://www.ea.com/able/resources/ea-sports-fc/fc-26">EA Sports FC 26 accessibility resources</a></figcaption></figure>
+      </article>
 
       <article class="sc" id="sc-1-3"><h3><span class="num">1.3</span>Colour vision</h3><dl>
         <dt>Barrier</dt><dd>Information relies on colours some players can't tell apart.</dd>
         <dt>Solutions</dt><dd><ul><li>Protanopia, deuteranopia and tritanopia modes</li><li>Never use colour alone; add shapes or icons</li></ul></dd>
-      </dl></article>
+      </dl>
+      <figure class="shot"><img loading="lazy" onerror="this.closest('figure').hidden=true" src="https://i0.wp.com/caniplaythat.com/wp-content/uploads/2020/03/DOOM-Eternal-2.png?resize=800%2C450&amp;ssl=1" alt="DOOM Eternal accessibility settings showing colorblind rendering mode set to Protanopia, with sliders for intensity, strength, contrast and brightness."><figcaption>Credit: <a href="https://caniplaythat.com/2020/03/19/doom-eternal-settings-and-accessibility-first-impressions/">Can I Play That? – DOOM Eternal</a></figcaption></figure>
+      </article>
 
       <article class="sc" id="sc-1-4"><h3><span class="num">1.4</span>Magnification</h3><dl>
         <dt>Barrier</dt><dd>Fine detail is hard to see.</dd>
@@ -169,7 +190,9 @@
       <article class="sc" id="sc-1-5"><h3><span class="num">1.5</span>Screen reading</h3><dl>
         <dt>Barrier</dt><dd>Blind players can't read menus or on-screen text.</dd>
         <dt>Solutions</dt><dd><ul><li>Screen reader / text-to-speech for all UI</li><li>Auto-enable when console TTS is on</li><li>A button that reads out current status</li></ul></dd>
-      </dl></article>
+      </dl>
+      <figure class="shot"><img loading="lazy" onerror="this.closest('figure').hidden=true" src="https://media.contentapi.ea.com/content/dam/eacom/ea-accessibility/ea-sports-fc/fc-26/common/fc26-menu-narration.jpg.adapt.320w.jpg" alt="EA Sports FC 26 accessibility settings with the Narration toggle enabled, alongside a description of what the feature reads aloud."><figcaption>Credit: <a href="https://www.ea.com/able/resources/ea-sports-fc/fc-26">EA Sports FC 26 accessibility resources</a></figcaption></figure>
+      </article>
 
       <article class="sc" id="sc-1-6"><h3><span class="num">1.6</span>Audio alternatives to visuals</h3><dl>
         <dt>Barrier</dt><dd>Important cues are only shown visually.</dd>
@@ -234,7 +257,9 @@
       <article class="sc" id="sc-2-5"><h3><span class="num">2.5</span>Subtitle presentation</h3><dl>
         <dt>Barrier</dt><dd>Subtitles are hard to read.</dd>
         <dt>Solutions</dt><dd><ul><li>Size options</li><li>Background opacity</li><li>Background blur</li><li>Text colour</li></ul></dd>
-      </dl></article>
+      </dl>
+      <figure class="shot"><img loading="lazy" onerror="this.closest('figure').hidden=true" src="https://media.contentapi.ea.com/content/dam/eacom/ea-accessibility/ea-sports-fc/fc-26/common/fc26-user-interface-01.jpg.adapt.320w.jpg" alt="EA Sports FC 26 accessibility settings with the Subtitles toggle enabled and a live preview of the subtitle text." ><figcaption>Credit: <a href="https://www.ea.com/able/resources/ea-sports-fc/fc-26">EA Sports FC 26 accessibility resources</a></figcaption></figure>
+      </article>
 
       <article class="sc" id="sc-2-6"><h3><span class="num">2.6</span>Visual threat cues</h3><dl>
         <dt>Barrier</dt><dd>Threats are only signalled by sound.</dd>
@@ -249,7 +274,9 @@
       <article class="sc" id="sc-2-8"><h3><span class="num">2.8</span>Audio mix</h3><dl>
         <dt>Barrier</dt><dd>Dialogue is lost in the mix.</dd>
         <dt>Solutions</dt><dd><ul><li>Separate volume sliders</li><li>Voice boost</li><li>Centre-pan dialogue</li><li>Mono audio</li><li>Left / right balance</li><li>Asymmetrical hearing compensation for unequal hearing between ears</li><li>Reduce/filter sharp, high-pitched sounds (tinnitus-friendly mix)</li><li>Enhanced headphone mode</li></ul></dd>
-      </dl></article>
+      </dl>
+      <figure class="shot"><img loading="lazy" onerror="this.closest('figure').hidden=true" src="https://i0.wp.com/caniplaythat.com/wp-content/uploads/2020/03/DOOM-Eternal-17.png?resize=800%2C450&amp;ssl=1" alt="DOOM Eternal audio settings menu with separate volume sliders for music, sound effects and dialogue, plus audio mix options."><figcaption>Credit: <a href="https://caniplaythat.com/2020/03/19/doom-eternal-settings-and-accessibility-first-impressions/">Can I Play That? – DOOM Eternal</a></figcaption></figure>
+      </article>
     </section>
 
     <!-- 3 MOTOR -->
@@ -259,7 +286,9 @@
       <article class="sc" id="sc-3-1"><h3><span class="num">3.1</span>Remapping</h3><dl>
         <dt>Barrier</dt><dd>Players can't reach or press some buttons.</dd>
         <dt>Solutions</dt><dd><ul><li>Full control remapping</li><li>One-handed presets</li><li>Controller orientation</li><li>Stick swap</li><li>Shortcut gestures</li></ul></dd>
-      </dl></article>
+      </dl>
+      <figure class="shot"><img loading="lazy" onerror="this.closest('figure').hidden=true" src="https://media.contentapi.ea.com/content/dam/eacom/ea-accessibility/ea-sports-fc/fc-26/common/fc26-controller-layouts.jpg.adapt.320w.jpg" alt="EA Sports FC 26 controller settings showing the Classic control mapping preset on a PlayStation controller diagram."><figcaption>Credit: <a href="https://www.ea.com/able/resources/ea-sports-fc/fc-26">EA Sports FC 26 accessibility resources</a></figcaption></figure>
+      </article>
 
       <article class="sc" id="sc-3-2"><h3><span class="num">3.2</span>Holds</h3><dl>
         <dt>Barrier</dt><dd>Holding buttons is painful.</dd>
@@ -349,7 +378,9 @@
       <article class="sc" id="sc-6-1"><h3><span class="num">6.1</span>Settings setup</h3><dl>
         <dt>Barrier</dt><dd>Too many settings to work through.</dd>
         <dt>Solutions</dt><dd><ul><li>Presets for vision, hearing, motor and motion</li><li>Highlight changed settings</li><li>Reset all</li></ul></dd>
-      </dl></article>
+      </dl>
+      <figure class="shot"><img loading="lazy" onerror="this.closest('figure').hidden=true" src="https://media.contentapi.ea.com/content/dam/eacom/ea-accessibility/images/2019/08/ea-accessibility-apex-legends-gameplay-tab-pc.jpg.adapt.crop16x9.320w.jpg" alt="Apex Legends settings menu split into separate gameplay and accessibility tabs, grouping related options together." ><figcaption>Credit: <a href="https://www.ea.com/able/resources/apex-legends/pc/features">EA – Apex Legends accessibility features</a></figcaption></figure>
+      </article>
 
       <article class="sc" id="sc-6-2"><h3><span class="num">6.2</span>Remembering goals</h3><dl>
         <dt>Barrier</dt><dd>Players forget what to do next.</dd>
@@ -359,7 +390,9 @@
       <article class="sc" id="sc-6-3"><h3><span class="num">6.3</span>Visual clutter</h3><dl>
         <dt>Barrier</dt><dd>A busy screen is overwhelming.</dd>
         <dt>Solutions</dt><dd><ul><li>Toggle each HUD element separately</li></ul></dd>
-      </dl></article>
+      </dl>
+      <figure class="shot"><img loading="lazy" onerror="this.closest('figure').hidden=true" src="https://i0.wp.com/caniplaythat.com/wp-content/uploads/2020/03/DOOM-Eternal-4.png?resize=800%2C450&amp;ssl=1" alt="DOOM Eternal UI settings with individual toggles for HUD scale, opacity, crosshair style and on-screen indicators."><figcaption>Credit: <a href="https://caniplaythat.com/2020/03/19/doom-eternal-settings-and-accessibility-first-impressions/">Can I Play That? – DOOM Eternal</a></figcaption></figure>
+      </article>
 
       <article class="sc" id="sc-6-4"><h3><span class="num">6.4</span>Time limits</h3><dl>
         <dt>Barrier</dt><dd>Timers create pressure.</dd>
@@ -394,7 +427,9 @@
       <article class="sc" id="sc-7-3"><h3><span class="num">7.3</span>Targeted modifiers</h3><dl>
         <dt>Barrier</dt><dd>Specific mechanics block progress.</dd>
         <dt>Solutions</dt><dd><ul><li>Enemies don't flank</li><li>Invisible while prone</li><li>Enhanced dodge</li><li>Easier boss retries</li><li>Adjustable game speed</li><li>Optional invincibility or infinite stamina</li><li>Skip a level or chapter entirely</li><li>Adaptive dice/RNG assistance that improves odds after repeated failures</li></ul></dd>
-      </dl></article>
+      </dl>
+      <figure class="shot"><img loading="lazy" onerror="this.closest('figure').hidden=true" src="https://gameaccessibilityguidelines.com/wp-content/uploads/2022/09/celeste-assist-mode-910x1024.jpg" alt="Celeste's Assist Mode screen with sliders and toggles for game speed, infinite stamina, air dashes and invincibility." ><figcaption>Credit: <a href="https://gameaccessibilityguidelines.com/celeste-assist-mode/">Game Accessibility Guidelines – Celeste Assist Mode</a></figcaption></figure>
+      </article>
 
       <article class="sc" id="sc-7-4"><h3><span class="num">7.4</span>Forgiveness</h3><dl>
         <dt>Barrier</dt><dd>Failure is punishing.</dd>
