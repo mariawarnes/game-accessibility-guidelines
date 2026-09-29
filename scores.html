@@ -196,7 +196,8 @@ const games = [
   platforms: ["PC", "Xbox"],
   sources: [
     ["Forza Support: FH6 Accessibility Support (May 2026)", "https://support.forza.net/hc/en-us/articles/51644264237075-Forza-Horizon-6-Accessibility-Support"],
-    ["GameAccess by SpecialEffect: FH6 motor accessibility (Jun 2026)", "https://gameaccess.info/forza-horizon-6-motor-accessibility/"]
+    ["GameAccess by SpecialEffect: FH6 motor accessibility (Jun 2026)", "https://gameaccess.info/forza-horizon-6-motor-accessibility/"],
+    ["Forza: Series 4 update notes (Aug 2026)", "https://forza.net/news/forza-horizon-6-series-4"]
   ],
   e: [
     {id:"1.1", s:"Y", t:"Increased menu text size and subtitle text size", src:0},
@@ -205,7 +206,8 @@ const games = [
     {id:"1.5", s:"Y", t:"Screen reader narration, enabled in-game or via system", src:0},
     {id:"1.6", s:"P", t:"Proximity radar can play audio cues", src:0},
     {id:"1.7", s:"P", t:"AutoDrive drives to a map waypoint", src:0},
-    {id:"2.1", s:"Y", t:"Subtitles for all pertinent dialogue (not radio DJ); ASL/BSL for cinematics announced post-launch", src:0},
+    {id:"1.12", s:"Y", t:"Picture-in-picture ASL/BSL interpreter overlay for cutscenes, adjustable position and background colour (Series 4 update, Aug 2026)", src:2},
+    {id:"2.1", s:"Y", t:"Subtitles for all pertinent dialogue (not radio DJ); ASL/BSL for cinematics (Series 4 update, Aug 2026)", src:2},
     {id:"2.5", s:"Y", t:"Subtitle size, background opacity, keyword highlighting, preview", src:0},
     {id:"2.6", s:"P", t:"Proximity radar shows nearby cars", src:0},
     {id:"2.8", s:"Y", t:"Separate sliders for cars, radio, dialogue, ambience", src:0},
@@ -293,12 +295,14 @@ const games = [
   platforms: ["PC", "PlayStation", "Xbox", "Switch", "Mobile"],
   sources: [
     ["Minecraft.net: accessibility", "https://www.minecraft.net/en-us/accessibility"],
-    ["Can I Play That?: Bedrock gets captions (Jul 2026)", "https://caniplaythat.com/?p=17995"]
+    ["Can I Play That?: Bedrock gets captions (Jul 2026)", "https://caniplaythat.com/?p=17995"],
+    ["Minecraft Feedback: Identify Block / \"Describe\" accessibility feature (2026)", "https://feedback.minecraft.net/hc/en-us/community/posts/43555082105101-Identify-Block-Bedrock-Accessibility-Feature"]
   ],
   e: [
     {id:"1.1", s:"P", t:"Font size options on the achievement screen", src:0},
     {id:"1.3", s:"Y", t:"Distinct ore patterns for players who find colour hard", src:0},
     {id:"1.5", s:"P", t:"Narration on the achievement screen", src:0},
+    {id:"1.6", s:"Y", t:"\"Describe\" key binding reports the block or mob directly ahead via on-screen text and text-to-speech", src:2},
     {id:"2.2", s:"Y", t:"Closed captions for sounds", src:1},
     {id:"2.4", s:"Y", t:"Captions include direction indicators", src:1},
     {id:"2.5", s:"P", t:"Caption position and duration settings", src:1},
@@ -308,12 +312,14 @@ const games = [
   platforms: ["PC", "Xbox", "Mobile"],
   sources: [
     ["Can I Play That?: Roblox global text size (Aug 2025)", "https://caniplaythat.com/2025/08/27/roblox-introduces-global-text-size-accessibility-setting/"],
-    ["Roblox Creator Hub: accessibility guidelines (Jun 2026)", "https://create.roblox.com/docs/en-us/production/publishing/accessibility"]
+    ["Roblox Creator Hub: accessibility guidelines (Jun 2026)", "https://create.roblox.com/docs/en-us/production/publishing/accessibility"],
+    ["Roblox DevForum: AudioSpeechToText API full release (Feb 2026)", "https://devforum.roblox.com/t/full-release-speech-to-text-api/4357786"]
   ],
   e: [
     {id:"1.1", s:"Y", t:"Global text size setting; developers can limit it", src:0},
     {id:"1.2", s:"P", t:"Background transparency setting; developers must support it", src:1},
-    {id:"4.2", s:"P", t:"Reduce motion setting for UI animation; developers must support it", src:1}
+    {id:"4.2", s:"P", t:"Reduce motion setting for UI animation; developers must support it", src:1},
+    {id:"8.1", s:"P", t:"AudioSpeechToText API available for experiences to build voice-to-text on; developers must opt in", src:2}
   ]},
 { name: "Counter-Strike 2",
   platforms: ["PC"],
@@ -339,12 +345,16 @@ const games = [
     ["Blizzard: accessibility updates in 9.1 (2021)", "https://news.blizzard.com/en-us/article/23691035/enhance-your-gameplay-accessibility-updates-now-live"],
     ["Family Gaming Database: WoW (c. 2024)", "https://www.familygamingdatabase.com/accessibility/World+of+Warcraft"],
     ["Can I Play That?: WoW articles (2022–2025)", "https://caniplaythat.com/games/world-of-warcaft/"],
-    ["Blizzard Watch: Dragonflight accessibility (Jul 2022)", "https://blizzardwatch.com/2022/07/27/accessibility-options-dragonflight/"]
+    ["Blizzard Watch: Dragonflight accessibility (Jul 2022)", "https://blizzardwatch.com/2022/07/27/accessibility-options-dragonflight/"],
+    ["Blizzard: Midnight — UI updates, Boss Warnings (Sep 2025)", "https://news.blizzard.com/en-us/article/24223311/midnight-get-up-to-speed-with-user-interface-updates"],
+    ["Blizzard: Combat Philosophy and Addon Disarmament in Midnight (Nov 2025)", "https://worldofwarcraft.blizzard.com/en-us/news/24246290"]
   ],
   e: [
     {id:"1.2", s:"Y", t:"Outline interactive elements", src:1},
     {id:"1.3", s:"Y", t:"Colourblind mode", src:3},
+    {id:"1.6", s:"Y", t:"Built-in Combat Audio Alerts: text-to-speech and audio cues for player health and combat events, replacing third-party addons (Midnight expansion)", src:5},
     {id:"2.2", s:"Y", t:"Environmental captions", src:1},
+    {id:"2.6", s:"Y", t:"Boss Warnings: on-screen timeline of upcoming critical abilities, with alerts when the player is targeted (Midnight expansion)", src:4},
     {id:"3.1", s:"Y", t:"Remap buttons", src:1},
     {id:"3.8", s:"Y", t:"Rotation Assist with a one-button mode (2025)", src:2},
     {id:"4.1", s:"P", t:"Motion sickness elixir for two dungeons (2022)", src:2},
@@ -357,18 +367,44 @@ const games = [
   sources: [
     ["EA Accessibility Portal: Apex features (PC)", "https://ea.com/able/resources/apex-legends/pc/features"],
     ["EA Accessibility Portal: Apex overview (PC)", "https://ea.com/able/resources/apex-legends/pc"],
-    ["The Next Web: Apex ping system (2019)", "https://thenextweb.com/news/apex-legends-chat-accessibility"]
+    ["The Next Web: Apex ping system (2019)", "https://thenextweb.com/news/apex-legends-chat-accessibility"],
+    ["EA Accessibility Portal: Apex features (PS4)", "https://www.ea.com/able/resources/apex-legends/ps4/features"],
+    ["EA Accessibility Portal: Apex features (Xbox One)", "https://www.ea.com/able/resources/apex-legends/xbox-one/features"]
   ],
   e: [
     {id:"1.3", s:"Y", t:"Protanopia, deuteranopia and tritanopia modes", src:0, on:"PC"},
+    {id:"1.3", s:"Y", t:"Colour Blind Mode: protanopia, deuteranopia and tritanopia", src:3, on:"PlayStation"},
+    {id:"1.3", s:"Y", t:"Colour Blind Mode: protanopia, deuteranopia and tritanopia", src:4, on:"Xbox"},
     {id:"2.1", s:"Y", t:"Subtitles", src:0, on:"PC"},
+    {id:"2.1", s:"Y", t:"Subtitles with adjustable font size", src:3, on:"PlayStation"},
+    {id:"2.1", s:"Y", t:"Subtitles with adjustable font size", src:4, on:"Xbox"},
     {id:"2.5", s:"P", t:"Subtitle size only", src:0, on:"PC"},
+    {id:"2.5", s:"P", t:"Subtitle size only", src:3, on:"PlayStation"},
+    {id:"2.5", s:"P", t:"Subtitle size only", src:4, on:"Xbox"},
+    {id:"2.6", s:"Y", t:"Damage feedback, incoming-damage arrow indicators, and obituary toggles", src:3, on:"PlayStation"},
+    {id:"2.6", s:"Y", t:"Damage feedback, incoming-damage arrow indicators, and obituary toggles", src:4, on:"Xbox"},
     {id:"3.1", s:"Y", t:"Key bindings", src:1, on:"PC"},
+    {id:"3.1", s:"Y", t:"Six controller button-layout presets plus customisable stick configurations", src:3, on:"PlayStation"},
+    {id:"3.1", s:"Y", t:"Six controller button-layout presets plus customisable stick configurations", src:4, on:"Xbox"},
+    {id:"3.6", s:"Y", t:"Sensitivity, response curves, and look/aim deadzone settings", src:3, on:"PlayStation"},
+    {id:"3.6", s:"Y", t:"Sensitivity, response curves, and look/aim deadzone settings", src:4, on:"Xbox"},
+    {id:"4.4", s:"Y", t:"Field of view slider", src:3, on:"PlayStation"},
+    {id:"4.4", s:"Y", t:"Field of view slider", src:4, on:"Xbox"},
     {id:"6.2", s:"P", t:"Persistent button hints", src:0, on:"PC"},
+    {id:"6.2", s:"Y", t:"Interact prompt styles and button hints on the HUD", src:3, on:"PlayStation"},
+    {id:"6.2", s:"Y", t:"Interact prompt styles and button hints on the HUD", src:4, on:"Xbox"},
     {id:"8.1", s:"Y", t:"Ping system for non-verbal communication", src:2},
     {id:"8.1", s:"Y", t:"Voice-to-text, text-to-speech chat, and ping system", src:0, on:"PC"},
+    {id:"8.1", s:"Y", t:"Accessible chat: voice narration and speech-to-text conversion", src:3, on:"PlayStation"},
+    {id:"8.1", s:"Y", t:"Accessible chat: voice narration and speech-to-text conversion for incoming voice comms", src:4, on:"Xbox"},
+    {id:"8.2", s:"Y", t:"Streamer Mode anonymises player names", src:3, on:"PlayStation"},
+    {id:"8.2", s:"Y", t:"Streamer Mode anonymises player names", src:4, on:"Xbox"},
     {id:"9.1", s:"Y", t:"Accessibility options on the home screen", src:1, on:"PC"},
-    {id:"9.2", s:"Y", t:"Published accessibility documentation", src:1, on:"PC"}
+    {id:"9.1", s:"Y", t:"Dedicated accessibility features page", src:3, on:"PlayStation"},
+    {id:"9.1", s:"Y", t:"Dedicated accessibility features page", src:4, on:"Xbox"},
+    {id:"9.2", s:"Y", t:"Published accessibility documentation", src:1, on:"PC"},
+    {id:"9.2", s:"Y", t:"Published accessibility documentation", src:3, on:"PlayStation"},
+    {id:"9.2", s:"Y", t:"Published accessibility documentation", src:4, on:"Xbox"}
   ]},
 { name: "Call of Duty: Black Ops 7",
   platforms: ["PC", "PlayStation", "Xbox"],
@@ -394,21 +430,24 @@ const games = [
 { name: "Overwatch 2",
   platforms: ["PC", "PlayStation", "Xbox", "Switch"],
   sources: [
-    ["Family Gaming Database: Overwatch 2", "https://www.familygamingdatabase.com/accessibility/Overwatch+2"],
+    ["Family Gaming Database: Overwatch 2 (updated c. Oct 2025)", "https://www.familygamingdatabase.com/accessibility/Overwatch+2"],
     ["Blizzard Watch: Overwatch subtitles (2019)", "https://blizzardwatch.com/2019/06/25/how-will-subtitles-change-overwatch-accessibility/"]
   ],
   e: [
     {id:"1.2", s:"P", t:"Ally outlines; enemies can't be outlined", src:0},
-    {id:"1.3", s:"Y", t:"Choose enemy and ally UI colours", src:0},
+    {id:"1.3", s:"Y", t:"Deuteranopia and Protanopia colourblind presets, plus custom enemy/ally UI colours", src:0},
     {id:"2.1", s:"P", t:"Some speech subtitled; levels of subtitle coverage", src:0},
+    {id:"2.5", s:"P", t:"Adjustable subtitle scale; speaker names and portraits shown, but some audio cues still go uncaptioned (2025)", src:0},
     {id:"3.1", s:"Y", t:"Remap buttons", src:0},
-    {id:"3.6", s:"P", t:"Motion aiming", src:0},
+    {id:"3.6", s:"Y", t:"Motion (gyro) aiming", src:0, on:"Switch"},
+    {id:"3.6", s:"N", t:"No motion/gyro aiming support (Switch-exclusive feature)", src:0, on:"PlayStation"},
+    {id:"3.6", s:"N", t:"No motion/gyro aiming support (Switch-exclusive feature)", src:0, on:"Xbox"},
     {id:"8.1", s:"Y", t:"Text-to-speech, speech-to-text and ping system", src:0}
   ]},
 { name: "Valorant",
   platforms: ["PC", "PlayStation", "Xbox"],
   sources: [
-    ["Family Gaming Database: Valorant (c. 2025)", "https://www.familygamingdatabase.com/accessibility/Valorant"]
+    ["Family Gaming Database: Valorant (updated c. Oct 2025)", "https://www.familygamingdatabase.com/accessibility/Valorant"]
   ],
   e: [
     {id:"1.1", s:"N", t:"Text is not adjustable", src:0},
@@ -417,15 +456,20 @@ const games = [
     {id:"2.6", s:"Y", t:"Damage direction and bullet direction indicators", src:0},
     {id:"2.8", s:"Y", t:"Effect, voice and music volumes; HRTF", src:0},
     {id:"3.1", s:"Y", t:"Remap buttons", src:0},
+    {id:"3.6", s:"Y", t:"Aim magnetism/aim correction and a Focus Mode that lowers sensitivity while aiming (console only)", src:0, on:"PlayStation"},
+    {id:"3.6", s:"Y", t:"Aim magnetism/aim correction and a Focus Mode that lowers sensitivity while aiming (console only)", src:0, on:"Xbox"},
+    {id:"3.6", s:"N", t:"No aim magnetism or Focus Mode", src:0, on:"PC"},
     {id:"4.1", s:"P", t:"Fixed minimap option reduces on-screen motion", src:0},
-    {id:"8.1", s:"P", t:"Ping system, but no text-to-speech or speech-to-text", src:0}
+    {id:"8.1", s:"P", t:"Ping system (visually shown and narrated aloud), but no full text-to-speech or speech-to-text for voice chat", src:0}
   ]},
 { name: "League of Legends",
   platforms: ["PC"],
   sources: [
-    ["Can I Play That?: LoL champion sound notifications (Oct 2023)", "https://caniplaythat.com/2023/10/04/recent-accessibility-updates-league-of-legends-and-world-of-warcraft/"]
+    ["Can I Play That?: LoL champion sound notifications (Oct 2023)", "https://caniplaythat.com/2023/10/04/recent-accessibility-updates-league-of-legends-and-world-of-warcraft/"],
+    ["Riot Games Support: Colorblind Mode", "https://support.riotgames.com/en-us/league-of-legends/gameplay/colorblind-mode"]
   ],
   e: [
+    {id:"1.3", s:"Y", t:"Colourblind Mode for deuteranopia, toggle in Resolution settings", src:1},
     {id:"2.6", s:"P", t:"Visual notifications for global sound effects", src:0}
   ]},
 { name: "Marvel Rivals",
@@ -434,15 +478,19 @@ const games = [
     ["PlayStation Store: accessibility tags", "https://store.playstation.com/en-fi/concept/10010451"],
     ["Two Average Gamers: hearing accessibility guide (2025)", "https://www.twoaveragegamers.com/playing-marvel-rivals-with-hearing-difficulties-your-complete-visual-audio-guide/"],
     ["Two Average Gamers: cognitive accessibility guide (2025)", "https://www.twoaveragegamers.com/marvel-rivals-for-adhd-and-learning-differences-your-complete-cognitive-accessibility-guide/"],
-    ["Steam forum: colourblind settings don't cover AoE rings (Jan 2025)", "https://steamcommunity.com/app/2767030/discussions/0/600768722043470623"]
+    ["Steam forum: colourblind settings don't cover AoE rings (Jan 2025)", "https://steamcommunity.com/app/2767030/discussions/0/600768722043470623"],
+    ["Two Average Gamers: adaptive hardware guide (Sep 2025)", "https://www.twoaveragegamers.com/adaptive-hardware-guide-for-marvel-rivals/"],
+    ["Two Average Gamers: controller settings for limited mobility (updated Jan 2026)", "https://www.twoaveragegamers.com/marvel-rivals-controller-settings-for-limited-mobility-your-complete-motor-accessibility-setup-guide/"]
   ],
   e: [
     {id:"1.3", s:"P", t:"Enemy colours change, but red AoE rings and markers don't (Steam forum)", src:3, on:"PC"},
     {id:"2.1", s:"Y", t:"Spoken dialogue fully subtitled (PlayStation Store)", src:0, on:"PlayStation"},
     {id:"2.5", s:"Y", t:"Subtitle size, colour and background", src:1},
     {id:"2.8", s:"Y", t:"Individual volume controls (PlayStation Store)", src:0, on:"PlayStation"},
+    {id:"3.1", s:"Y", t:"Global controller remapping via batch swapping, plus per-hero overrides", src:5},
     {id:"3.1", s:"Y", t:"Full controller remapping (PlayStation Store)", src:0, on:"PlayStation"},
-    {id:"3.2", s:"Y", t:"Hold or toggle options", src:2},
+    {id:"3.2", s:"Y", t:"Hold-to-toggle conversions for abilities (e.g. shield block, flight) via batch remapping", src:5},
+    {id:"3.9", s:"Y", t:"Xbox Adaptive Controller support (console and PC via USB); one-handed keypads and high-button mice usable on PC", src:4},
     {id:"6.2", s:"Y", t:"Tutorial reminders available any time (PlayStation Store)", src:0, on:"PlayStation"},
     {id:"7.1", s:"P", t:"Practice mode (PlayStation Store)", src:0, on:"PlayStation"}
   ]},
@@ -468,7 +516,8 @@ const games = [
 { name: "Rocket League",
   platforms: ["PC", "PlayStation", "Xbox", "Switch"],
   sources: [
-    ["Family Gaming Database: Rocket League (Sep 2026)", "https://www.familygamingdatabase.com/accessibility/Rocket+League"]
+    ["Family Gaming Database: Rocket League (updated c. Jan 2026)", "https://www.familygamingdatabase.com/accessibility/Rocket+League"],
+    ["Able Gaming: Rocket League accessibility review", "https://medium.com/@AbleGaming/rocket-league-accessibility-review-f722c620bced"]
   ],
   e: [
     {id:"1.7", s:"P", t:"Optional arrow pointing to the ball", src:0},
@@ -498,23 +547,32 @@ const games = [
 { name: "PUBG: Battlegrounds",
   platforms: ["PC", "PlayStation", "Xbox", "Mobile"],
   sources: [
-    ["OsloMet master's thesis on deaf players in PUBG (2020)", "https://oda.oslomet.no/handle/10642/9018"]
+    ["OsloMet master's thesis on deaf players in PUBG (2020)", "https://oda.oslomet.no/handle/10642/9018"],
+    ["Family Gaming Database: PUBG", "https://www.familygamingdatabase.com/accessibility/PlayerUnknowns+Battlegrounds"],
+    ["PUBG Mobile Help Center: Color Weakness Mode", "https://pubgmobile.helpshift.com/hc/en/3-pubg-mobile/faq/272-how-do-i-play-in-color-weakness-mode/?l=en"]
   ],
   e: [
+    {id:"1.3", s:"Y", t:"Colour blind friendly", src:1},
+    {id:"1.3", s:"Y", t:"Colour Weakness Mode: protanopia, deuteranopia and tritanopia via Settings > Graphics", src:2, on:"Mobile"},
     {id:"2.6", s:"N", t:"No visual feedback for sounds (as of 2020)", src:0},
+    {id:"6.2", s:"Y", t:"Tutorials available", src:1},
+    {id:"7.1", s:"P", t:"Practice/training area available", src:1},
     {id:"8.1", s:"N", t:"No text chat alternative to voice (as of 2020)", src:0}
   ]},
 { name: "Dota 2",
   platforms: ["PC"],
   sources: [
-    ["Family Gaming Database: Dota 2", "https://www.familygamingdatabase.com/accessibility/DotA+2"]
+    ["Family Gaming Database: Dota 2 (updated, now documents 18 features)", "https://www.familygamingdatabase.com/accessibility/DotA+2"]
   ],
   e: [
     {id:"1.1", s:"N", t:"Chat is small white text over the game and can be hard to read", src:0},
     {id:"1.3", s:"Y", t:"Colour blind friendly", src:0},
     {id:"2.1", s:"Y", t:"All dialogue subtitled", src:0},
-    {id:"3.1", s:"Y", t:"Remap buttons", src:0},
-    {id:"4.1", s:"Y", t:"Top-down view with a mostly static background", src:0}
+    {id:"2.2", s:"Y", t:"Visual cues for audio events; reported as fully playable without sound", src:0},
+    {id:"2.8", s:"Y", t:"Balanced, separate audio levels", src:0},
+    {id:"3.1", s:"Y", t:"Remap buttons (gamepad and mouse/keyboard)", src:0},
+    {id:"4.1", s:"Y", t:"Top-down view with a mostly static background", src:0},
+    {id:"8.2", s:"Y", t:"Chat filtering available", src:0}
   ]},
 { name: "Grand Theft Auto V",
   platforms: ["PC", "PlayStation", "Xbox"],
@@ -556,7 +614,9 @@ const notes = {
   "Counter-Strike 2": "Only Counter-Strike: Global Offensive-era forum posts were found. CS2 is a rebuilt game, so they weren't used.",
   "Roblox (platform only)": "Covers Roblox's own settings. Each experience is made by a different developer and varies.",
   "Genshin Impact": "Sources found are from 2021 and c. 2022. Genshin has changed a lot since as a live-service game, so treat these as historical.",
-  "PUBG: Battlegrounds": "The only source found is from 2020. The game may have changed since."
+  "PUBG: Battlegrounds": "The visual-feedback and text-chat findings are from a 2020 thesis and may be outdated. Family Gaming Database explicitly documents no remapping, subtitles, or difficulty options as of its last check — that's an unconfirmed gap, not a verified Missing, so it's left Unknown.",
+  "World of Warcraft": "Some blind and low-vision players report that Midnight's addon restrictions (2025–2026) removed third-party accessibility addons they relied on. This hasn't been formally reviewed, so it isn't scored — treat the built-in replacements above as unverified against what they replace.",
+  "Apex Legends": "EA has announced Apex Legends stops being playable on the original Nintendo Switch from August 2026 (Season 30); the Switch score reflects the game as it existed before then."
 };
 
 // Scoring
