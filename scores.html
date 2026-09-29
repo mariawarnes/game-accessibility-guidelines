@@ -119,7 +119,7 @@
 </nav>
 
 <main id="main">
-  <p>Each game is checked against the 50 guidelines. Choose an access need to re-rank the games, or filter by platform.</p>
+  <p>Each platform version of a game is scored separately, since accessibility support can differ between them. Choose an access need to re-rank, or filter by platform.</p>
 
   <div class="notice" role="note">
     <p><strong>How scoring works</strong></p>
@@ -129,7 +129,7 @@
       <li><strong>Unknown</strong> means no source was found. It does not mean the feature is missing.</li>
       <li>The score is a verified minimum. Games with lots of unknowns may score higher once checked.</li>
       <li><strong>Coverage</strong> shows how much of the checklist has evidence. Under 25% is flagged.</li>
-      <li><strong>Platform</strong> shows where a game is available. Accessibility features aren't guaranteed to match across platforms — check the evidence column for platform-specific notes (e.g. "PC only").</li>
+      <li>Each game has one row per platform. A source only counts for the platform it actually names (e.g. a PS5 review only scores the PS5 row); a source that doesn't name a platform counts for every version of that game. This means one version can score much higher than another simply because it's the one that's been reviewed.</li>
       <li>Sources were checked on 29 September 2026. Older sources are dated so you can judge them.</li>
     </ul>
   </div>
@@ -185,7 +185,9 @@ const cats = [
 ];
 const STATUS = { Y: "Met", P: "Partial", N: "Missing", NA: "Not applicable" };
 
-// e: { criterion: [status, evidence, sourceIndex] }
+// Each evidence record: {id, s: status, t: evidence text, src: sourceIndex, on?: platform}.
+// `on` restricts a record to one platform's row; omit it when a source doesn't say which
+// platform it covers, and the record applies to every platform version of that game.
 const games = [
 { name: "Forza Horizon 6",
   platforms: ["PC", "Xbox"],
@@ -193,135 +195,141 @@ const games = [
     ["Forza Support: FH6 Accessibility Support (May 2026)", "https://support.forza.net/hc/en-us/articles/51644264237075-Forza-Horizon-6-Accessibility-Support"],
     ["GameAccess by SpecialEffect: FH6 motor accessibility (Jun 2026)", "https://gameaccess.info/forza-horizon-6-motor-accessibility/"]
   ],
-  e: {
-    "1.1": ["Y","Increased menu text size and subtitle text size",0],
-    "1.2": ["Y","Customisable high contrast mode in gameplay",0],
-    "1.3": ["Y","Colour-blind UI options and separate full-game filters",0],
-    "1.5": ["Y","Screen reader narration, enabled in-game or via system",0],
-    "1.6": ["P","Proximity radar can play audio cues",0],
-    "1.7": ["P","AutoDrive drives to a map waypoint",0],
-    "2.1": ["Y","Subtitles for all pertinent dialogue (not radio DJ); ASL/BSL for cinematics announced post-launch",0],
-    "2.5": ["Y","Subtitle size, background opacity, keyword highlighting, preview",0],
-    "2.6": ["P","Proximity radar shows nearby cars",0],
-    "2.8": ["Y","Separate sliders for cars, radio, dialogue, ambience",0],
-    "3.1": ["Y","Full controller and keyboard remapping, 5 custom profiles",0],
-    "3.4": ["Y","Offline Game Speed slows the game down",0],
-    "3.7": ["Y","Assisted and auto steering along the route",1],
-    "3.8": ["Y","AutoDrive while free roaming",0],
-    "3.9": ["Y","Any USB device on PC; partnership with SpecialEffect",0],
-    "4.2": ["P","Option to disable moving backgrounds",0],
-    "4.4": ["P","Field-of-view options on PC only",0],
-    "6.3": ["Y","Toggle HUD elements; set notification duration",0],
-    "7.1": ["Y","Difficulty and driving assists, including Tourist Drivatar",0],
-    "7.3": ["Y","Progress Horizon Stories without completing challenges",0],
-    "8.1": ["P","Forza LINK quick communication on the d-pad",0],
-    "9.1": ["Y","Accessibility menu reachable at start-up",0],
-    "9.2": ["Y","Official accessibility support page",0]
-  }},
+  e: [
+    {id:"1.1", s:"Y", t:"Increased menu text size and subtitle text size", src:0},
+    {id:"1.2", s:"Y", t:"Customisable high contrast mode in gameplay", src:0},
+    {id:"1.3", s:"Y", t:"Colour-blind UI options and separate full-game filters", src:0},
+    {id:"1.5", s:"Y", t:"Screen reader narration, enabled in-game or via system", src:0},
+    {id:"1.6", s:"P", t:"Proximity radar can play audio cues", src:0},
+    {id:"1.7", s:"P", t:"AutoDrive drives to a map waypoint", src:0},
+    {id:"2.1", s:"Y", t:"Subtitles for all pertinent dialogue (not radio DJ); ASL/BSL for cinematics announced post-launch", src:0},
+    {id:"2.5", s:"Y", t:"Subtitle size, background opacity, keyword highlighting, preview", src:0},
+    {id:"2.6", s:"P", t:"Proximity radar shows nearby cars", src:0},
+    {id:"2.8", s:"Y", t:"Separate sliders for cars, radio, dialogue, ambience", src:0},
+    {id:"3.1", s:"Y", t:"Full controller and keyboard remapping, 5 custom profiles", src:0},
+    {id:"3.4", s:"Y", t:"Offline Game Speed slows the game down", src:0},
+    {id:"3.7", s:"Y", t:"Assisted and auto steering along the route", src:1},
+    {id:"3.8", s:"Y", t:"AutoDrive while free roaming", src:0},
+    {id:"3.9", s:"Y", t:"Any USB device; partnership with SpecialEffect", src:0, on:"PC"},
+    {id:"4.2", s:"P", t:"Option to disable moving backgrounds", src:0},
+    {id:"4.4", s:"P", t:"Field-of-view options", src:0, on:"PC"},
+    {id:"6.3", s:"Y", t:"Toggle HUD elements; set notification duration", src:0},
+    {id:"7.1", s:"Y", t:"Difficulty and driving assists, including Tourist Drivatar", src:0},
+    {id:"7.3", s:"Y", t:"Progress Horizon Stories without completing challenges", src:0},
+    {id:"8.1", s:"P", t:"Forza LINK quick communication on the d-pad", src:0},
+    {id:"9.1", s:"Y", t:"Accessibility menu reachable at start-up", src:0},
+    {id:"9.2", s:"Y", t:"Official accessibility support page", src:0}
+  ]},
 { name: "Resident Evil Requiem",
   platforms: ["PC", "PlayStation", "Xbox"],
   sources: [
     ["Can I Play That?: RE Requiem accessibility review (May 2026)", "https://caniplaythat.com/2026/05/11/resident-evil-requiem-accessibility-review/"],
-    ["Victor Dima: accessibility review, blind reviewer (Feb 2026)", "https://victordima.net/accessibility-review-resident-evil-requiem-ps5-pro/"],
+    ["Victor Dima: accessibility review, blind reviewer, PS5 Pro (Feb 2026)", "https://victordima.net/accessibility-review-resident-evil-requiem-ps5-pro/"],
     ["Access-Ability: RE9 accessibility review (Mar 2026)", "https://access-ability.uk/2026/03/06/resident-evil-9-accessibility-review-access-ability/"]
   ],
-  e: {
-    "1.1": ["Y","Larger fonts and bigger UI",1],
-    "1.3": ["P","Relies less on colour, but one blood-analysis puzzle is colour-based",0],
-    "1.5": ["N","No menu narration",0],
-    "1.6": ["N","Blind reviewer found nothing that makes it playable without sight",1],
-    "1.9": ["Y","Aim Snap and Aim Follow with strength slider",0],
-    "2.1": ["Y","Subtitles on by default",0],
-    "2.2": ["Y","Closed captions for sounds",0],
-    "2.3": ["Y","Speaker names with optional colours",0],
-    "2.5": ["Y","Three sizes, colour choice, background",0],
-    "2.8": ["Y","Separate sliders plus dynamic range setting",0],
-    "3.1": ["Y","Full rebinding (PC mouse wheel stays locked)",0],
-    "3.3": ["Y","Repeated presses can be set to hold",0],
-    "3.6": ["Y","Aim assist, on by default in Casual",0],
-    "3.7": ["Y","Automatic vaulting and ladder climbing",0],
-    "3.8": ["P","Automatic walk/run option",0],
-    "4.1": ["Y","Camera wobble slider",0],
-    "4.2": ["Y","Motion blur can be turned off",0],
-    "4.4": ["Y","Optional persistent centre dot",0],
-    "6.1": ["Y","Presets for visual, physical, auditory and motion sickness",2],
-    "6.2": ["Y","Tutorials available from the pause screen",0],
-    "6.3": ["Y","Remove or resize HUD elements",0],
-    "7.1": ["Y","Four difficulties including Casual",0],
-    "7.4": ["P","Frequent autosaves; easier difficulty offered only in one mode",0],
-    "8.1": ["NA","Single-player",0], "8.2": ["NA","Single-player",0], "8.3": ["NA","Single-player",0],
-    "9.1": ["P","First boot highlights presets but can't apply them yet",2]
-  }},
+  e: [
+    {id:"1.1", s:"Y", t:"Larger fonts and bigger UI (PS5 Pro review)", src:1, on:"PlayStation"},
+    {id:"1.3", s:"P", t:"Relies less on colour, but one blood-analysis puzzle is colour-based", src:0},
+    {id:"1.5", s:"N", t:"No menu narration", src:0},
+    {id:"1.6", s:"N", t:"Blind reviewer found nothing that makes it playable without sight (PS5 Pro review)", src:1, on:"PlayStation"},
+    {id:"1.9", s:"Y", t:"Aim Snap and Aim Follow with strength slider", src:0},
+    {id:"2.1", s:"Y", t:"Subtitles on by default", src:0},
+    {id:"2.2", s:"Y", t:"Closed captions for sounds", src:0},
+    {id:"2.3", s:"Y", t:"Speaker names with optional colours", src:0},
+    {id:"2.5", s:"Y", t:"Three sizes, colour choice, background", src:0},
+    {id:"2.8", s:"Y", t:"Separate sliders plus dynamic range setting", src:0},
+    {id:"3.1", s:"Y", t:"Full rebinding (PC mouse wheel stays locked)", src:0},
+    {id:"3.3", s:"Y", t:"Repeated presses can be set to hold", src:0},
+    {id:"3.6", s:"Y", t:"Aim assist, on by default in Casual", src:0},
+    {id:"3.7", s:"Y", t:"Automatic vaulting and ladder climbing", src:0},
+    {id:"3.8", s:"P", t:"Automatic walk/run option", src:0},
+    {id:"4.1", s:"Y", t:"Camera wobble slider", src:0},
+    {id:"4.2", s:"Y", t:"Motion blur can be turned off", src:0},
+    {id:"4.4", s:"Y", t:"Optional persistent centre dot", src:0},
+    {id:"6.1", s:"Y", t:"Presets for visual, physical, auditory and motion sickness", src:2},
+    {id:"6.2", s:"Y", t:"Tutorials available from the pause screen", src:0},
+    {id:"6.3", s:"Y", t:"Remove or resize HUD elements", src:0},
+    {id:"7.1", s:"Y", t:"Four difficulties including Casual", src:0},
+    {id:"7.4", s:"P", t:"Frequent autosaves; easier difficulty offered only in one mode", src:0},
+    {id:"8.1", s:"NA", t:"Single-player", src:0},
+    {id:"8.2", s:"NA", t:"Single-player", src:0},
+    {id:"8.3", s:"NA", t:"Single-player", src:0},
+    {id:"9.1", s:"P", t:"First boot highlights presets but can't apply them yet", src:2}
+  ]},
 { name: "Fortnite",
   platforms: ["PC", "PlayStation", "Xbox", "Switch", "Mobile"],
   sources: [
     ["Epic Games Help: accessibility settings", "https://www.epicgames.com/help/c-202300000001636/c-202300000001721/are-there-any-accessibility-settings-for-fortnite-a202300000015585"],
-    ["Can I Play That?: menu deep dive (Apr 2022)", "https://caniplaythat.com/2022/04/26/fortnite-accessibility-menu-deep-dive/"],
+    ["Can I Play That?: menu deep dive, PS5 version reviewed (Apr 2022)", "https://caniplaythat.com/2022/04/26/fortnite-accessibility-menu-deep-dive/"],
     ["Can I Play That?: Fortnite accessibility review (2022)", "https://caniplaythat.com/?p=8498"]
   ],
-  e: {
-    "1.1": ["P","HUD scaling; reviewer says HUD text could be more legible",2],
-    "1.2": ["P","User interface contrast option",1],
-    "1.3": ["Y","Protan, deutan and tritan modes with strength slider",1],
-    "2.1": ["Y","Subtitles available",2],
-    "2.4": ["Y","Sound visualisation shows direction",2],
-    "2.5": ["Y","Size, background, outline and drop shadow",2],
-    "2.6": ["Y","Sound visualisation wheel and damage wheel",2],
-    "2.7": ["P","Extra haptic options on PS5 only",0],
-    "2.8": ["Y","Separate volume sliders",1],
-    "3.1": ["Y","Controller and keyboard remapping",2],
-    "3.2": ["Y","Toggle sprint and toggle targeting",1],
-    "3.6": ["Y","Adjustable aim assist strength",0],
-    "3.8": ["P","Auto-open doors",1],
-    "3.9": ["Y","Supports Xbox Adaptive Controller and 3dRudder",0],
-    "4.2": ["Y","Motion blur toggle",1],
-    "6.5": ["N","Reviewer notes complicated menu structures",2],
-    "7.3": ["P","Zero Build mode removes the building mechanic",2]
-  }},
+  e: [
+    {id:"1.1", s:"P", t:"HUD scaling; reviewer says HUD text could be more legible", src:2},
+    {id:"1.2", s:"P", t:"User interface contrast option (PS5 deep dive)", src:1, on:"PlayStation"},
+    {id:"1.3", s:"Y", t:"Protan, deutan and tritan modes with strength slider (PS5 deep dive)", src:1, on:"PlayStation"},
+    {id:"2.1", s:"Y", t:"Subtitles available", src:2},
+    {id:"2.4", s:"Y", t:"Sound visualisation shows direction", src:2},
+    {id:"2.5", s:"Y", t:"Size, background, outline and drop shadow", src:2},
+    {id:"2.6", s:"Y", t:"Sound visualisation wheel and damage wheel", src:2},
+    {id:"2.7", s:"P", t:"Extra haptic options on PS5 only", src:0, on:"PlayStation"},
+    {id:"2.8", s:"Y", t:"Separate volume sliders (PS5 deep dive)", src:1, on:"PlayStation"},
+    {id:"3.1", s:"Y", t:"Controller and keyboard remapping", src:2},
+    {id:"3.2", s:"Y", t:"Toggle sprint and toggle targeting (PS5 deep dive)", src:1, on:"PlayStation"},
+    {id:"3.3", s:"Y", t:"Adjustable hold times replace some repeated-press actions (PS5 deep dive)", src:1, on:"PlayStation"},
+    {id:"3.6", s:"Y", t:"Adjustable aim assist strength", src:0},
+    {id:"3.8", s:"Y", t:"Auto-open doors, auto weapon pickup, and hold-to-swap pickup (PS5 deep dive)", src:1, on:"PlayStation"},
+    {id:"3.9", s:"Y", t:"Supports Xbox Adaptive Controller and 3dRudder", src:0},
+    {id:"4.2", s:"Y", t:"Motion blur toggle (PS5 deep dive)", src:1, on:"PlayStation"},
+    {id:"6.2", s:"P", t:"Contextual tips can be toggled (PS5 deep dive)", src:1, on:"PlayStation"},
+    {id:"6.3", s:"Y", t:"Toggle spectator count, reticle, health, resources, minimap and quick bar individually (PS5 deep dive)", src:1, on:"PlayStation"},
+    {id:"6.5", s:"N", t:"Reviewer notes complicated menu structures", src:2},
+    {id:"7.3", s:"P", t:"Zero Build mode removes the building mechanic", src:2},
+    {id:"8.2", s:"Y", t:"Mature language filter, anonymous mode and hide player names options (PS5 deep dive)", src:1, on:"PlayStation"}
+  ]},
 { name: "Minecraft (Bedrock)",
   platforms: ["PC", "PlayStation", "Xbox", "Switch", "Mobile"],
   sources: [
     ["Minecraft.net: accessibility", "https://www.minecraft.net/en-us/accessibility"],
     ["Can I Play That?: Bedrock gets captions (Jul 2026)", "https://caniplaythat.com/?p=17995"]
   ],
-  e: {
-    "1.1": ["P","Font size options on the achievement screen",0],
-    "1.3": ["Y","Distinct ore patterns for players who find colour hard",0],
-    "1.5": ["P","Narration on the achievement screen",0],
-    "2.2": ["Y","Closed captions for sounds",1],
-    "2.4": ["Y","Captions include direction indicators",1],
-    "2.5": ["P","Caption position and duration settings",1],
-    "2.8": ["Y","Adjustable audio channels",0]
-  }},
+  e: [
+    {id:"1.1", s:"P", t:"Font size options on the achievement screen", src:0},
+    {id:"1.3", s:"Y", t:"Distinct ore patterns for players who find colour hard", src:0},
+    {id:"1.5", s:"P", t:"Narration on the achievement screen", src:0},
+    {id:"2.2", s:"Y", t:"Closed captions for sounds", src:1},
+    {id:"2.4", s:"Y", t:"Captions include direction indicators", src:1},
+    {id:"2.5", s:"P", t:"Caption position and duration settings", src:1},
+    {id:"2.8", s:"Y", t:"Adjustable audio channels", src:0}
+  ]},
 { name: "Roblox (platform only)",
   platforms: ["PC", "Xbox", "Mobile"],
   sources: [
     ["Can I Play That?: Roblox global text size (Aug 2025)", "https://caniplaythat.com/2025/08/27/roblox-introduces-global-text-size-accessibility-setting/"],
     ["Roblox Creator Hub: accessibility guidelines (Jun 2026)", "https://create.roblox.com/docs/en-us/production/publishing/accessibility"]
   ],
-  e: {
-    "1.1": ["Y","Global text size setting; developers can limit it",0],
-    "1.2": ["P","Background transparency setting; developers must support it",1],
-    "4.2": ["P","Reduce motion setting for UI animation; developers must support it",1]
-  }},
+  e: [
+    {id:"1.1", s:"Y", t:"Global text size setting; developers can limit it", src:0},
+    {id:"1.2", s:"P", t:"Background transparency setting; developers must support it", src:1},
+    {id:"4.2", s:"P", t:"Reduce motion setting for UI animation; developers must support it", src:1}
+  ]},
 { name: "Counter-Strike 2",
   platforms: ["PC"],
   sources: [],
-  e: {}},
+  e: []},
 { name: "Street Fighter 6",
   platforms: ["PC", "PlayStation", "Xbox"],
   sources: [
     ["Can I Play That?: SF6 accessibility review (2023)", "https://caniplaythat.com/?p=12195"],
     ["Automaton: SF6 blind accessibility with ePARA (May 2023)", "https://automaton-media.com/en/news/20230502-18743/"]
   ],
-  e: {
-    "1.5": ["P","Stage and character select narrated; no menu narration",0],
-    "1.6": ["Y","Audio cues for distance, hit height, gauges and cross-ups",1],
-    "2.2": ["N","No captions",0],
-    "2.8": ["Y","Separate levels for music, effects, system, voices and more",1],
-    "3.4": ["P","Modern and Dynamic controls simplify combos; limited to certain modes",0],
-    "6.3": ["Y","Fully customisable HUD",0]
-  }},
+  e: [
+    {id:"1.5", s:"P", t:"Stage and character select narrated; no menu narration", src:0},
+    {id:"1.6", s:"Y", t:"Audio cues for distance, hit height, gauges and cross-ups", src:1},
+    {id:"2.2", s:"N", t:"No captions", src:0},
+    {id:"2.8", s:"Y", t:"Separate levels for music, effects, system, voices and more", src:1},
+    {id:"3.4", s:"P", t:"Modern and Dynamic controls simplify combos; limited to certain modes", src:0},
+    {id:"6.3", s:"Y", t:"Fully customisable HUD", src:0}
+  ]},
 { name: "World of Warcraft",
   platforms: ["PC", "Mac"],
   sources: [
@@ -330,17 +338,17 @@ const games = [
     ["Can I Play That?: WoW articles (2022–2025)", "https://caniplaythat.com/games/world-of-warcaft/"],
     ["Blizzard Watch: Dragonflight accessibility (Jul 2022)", "https://blizzardwatch.com/2022/07/27/accessibility-options-dragonflight/"]
   ],
-  e: {
-    "1.2": ["Y","Outline interactive elements",1],
-    "1.3": ["Y","Colourblind mode",3],
-    "2.2": ["Y","Environmental captions",1],
-    "3.1": ["Y","Remap buttons",1],
-    "3.8": ["Y","Rotation Assist with a one-button mode (2025)",2],
-    "4.1": ["P","Motion sickness elixir for two dungeons (2022)",2],
-    "5.1": ["Y","No flashing effects, or they can be disabled",1],
-    "6.3": ["Y","Adjustable HUD elements and profiles (2022)",2],
-    "8.1": ["Y","Voice chat transcription, chat narration, and Speak for Me",0]
-  }},
+  e: [
+    {id:"1.2", s:"Y", t:"Outline interactive elements", src:1},
+    {id:"1.3", s:"Y", t:"Colourblind mode", src:3},
+    {id:"2.2", s:"Y", t:"Environmental captions", src:1},
+    {id:"3.1", s:"Y", t:"Remap buttons", src:1},
+    {id:"3.8", s:"Y", t:"Rotation Assist with a one-button mode (2025)", src:2},
+    {id:"4.1", s:"P", t:"Motion sickness elixir for two dungeons (2022)", src:2},
+    {id:"5.1", s:"Y", t:"No flashing effects, or they can be disabled", src:1},
+    {id:"6.3", s:"Y", t:"Adjustable HUD elements and profiles (2022)", src:2},
+    {id:"8.1", s:"Y", t:"Voice chat transcription, chat narration, and Speak for Me", src:0}
+  ]},
 { name: "Apex Legends",
   platforms: ["PC", "PlayStation", "Xbox", "Switch"],
   sources: [
@@ -348,72 +356,73 @@ const games = [
     ["EA Accessibility Portal: Apex overview (PC)", "https://ea.com/able/resources/apex-legends/pc"],
     ["The Next Web: Apex ping system (2019)", "https://thenextweb.com/news/apex-legends-chat-accessibility"]
   ],
-  e: {
-    "1.3": ["Y","Protanopia, deuteranopia and tritanopia modes",0],
-    "2.1": ["Y","Subtitles",0],
-    "2.5": ["P","Subtitle size only",0],
-    "3.1": ["Y","Key bindings",1],
-    "6.2": ["P","Persistent button hints",0],
-    "8.1": ["Y","Voice-to-text, text-to-speech chat, and ping system",0],
-    "9.1": ["Y","Accessibility options on the home screen",1],
-    "9.2": ["Y","Published accessibility documentation",1]
-  }},
+  e: [
+    {id:"1.3", s:"Y", t:"Protanopia, deuteranopia and tritanopia modes", src:0, on:"PC"},
+    {id:"2.1", s:"Y", t:"Subtitles", src:0, on:"PC"},
+    {id:"2.5", s:"P", t:"Subtitle size only", src:0, on:"PC"},
+    {id:"3.1", s:"Y", t:"Key bindings", src:1, on:"PC"},
+    {id:"6.2", s:"P", t:"Persistent button hints", src:0, on:"PC"},
+    {id:"8.1", s:"Y", t:"Ping system for non-verbal communication", src:2},
+    {id:"8.1", s:"Y", t:"Voice-to-text, text-to-speech chat, and ping system", src:0, on:"PC"},
+    {id:"9.1", s:"Y", t:"Accessibility options on the home screen", src:1, on:"PC"},
+    {id:"9.2", s:"Y", t:"Published accessibility documentation", src:1, on:"PC"}
+  ]},
 { name: "Call of Duty: Black Ops 7",
   platforms: ["PC", "PlayStation", "Xbox"],
   sources: [
     ["Call of Duty blog: BO7 accessibility features (Nov 2025)", "https://www.callofduty.com/ca/en/blog/2025/11/call-of-duty-black-ops-7-accessibility-features-settings"]
   ],
-  e: {
-    "1.1": ["Y","Text size option",0],
-    "1.2": ["Y","High contrast mode",0],
-    "1.3": ["Y","Colour customisation",0],
-    "2.8": ["Y","Reduce tinnitus sound, asymmetric hearing compensation, headphone mode",0],
-    "3.8": ["Y","Low Motor Strain preset simplifies inputs",0],
-    "4.1": ["Y","Motion reduction options for camera and visual effects",0],
-    "4.4": ["Y","Visual anchors: horizon line, dot grid, border, vignette",0],
-    "5.1": ["P","Inverted flash option",0],
-    "6.1": ["Y","Low Motor Strain and HUD presets",0],
-    "6.3": ["Y","HUD customisation",0],
-    "8.3": ["P","Arachnophobia setting changes spider-like enemies",0],
-    "9.2": ["Y","Published accessibility feature list",0]
-  }},
+  e: [
+    {id:"1.1", s:"Y", t:"Text size option", src:0},
+    {id:"1.2", s:"Y", t:"High contrast mode", src:0},
+    {id:"1.3", s:"Y", t:"Colour customisation", src:0},
+    {id:"2.8", s:"Y", t:"Reduce tinnitus sound, asymmetric hearing compensation, headphone mode", src:0},
+    {id:"3.8", s:"Y", t:"Low Motor Strain preset simplifies inputs", src:0},
+    {id:"4.1", s:"Y", t:"Motion reduction options for camera and visual effects", src:0},
+    {id:"4.4", s:"Y", t:"Visual anchors: horizon line, dot grid, border, vignette", src:0},
+    {id:"5.1", s:"P", t:"Inverted flash option", src:0},
+    {id:"6.1", s:"Y", t:"Low Motor Strain and HUD presets", src:0},
+    {id:"6.3", s:"Y", t:"HUD customisation", src:0},
+    {id:"8.3", s:"P", t:"Arachnophobia setting changes spider-like enemies", src:0},
+    {id:"9.2", s:"Y", t:"Published accessibility feature list", src:0}
+  ]},
 { name: "Overwatch 2",
   platforms: ["PC", "PlayStation", "Xbox", "Switch"],
   sources: [
     ["Family Gaming Database: Overwatch 2", "https://www.familygamingdatabase.com/accessibility/Overwatch+2"],
     ["Blizzard Watch: Overwatch subtitles (2019)", "https://blizzardwatch.com/2019/06/25/how-will-subtitles-change-overwatch-accessibility/"]
   ],
-  e: {
-    "1.2": ["P","Ally outlines; enemies can't be outlined",0],
-    "1.3": ["Y","Choose enemy and ally UI colours",0],
-    "2.1": ["P","Some speech subtitled; levels of subtitle coverage",0],
-    "3.1": ["Y","Remap buttons",0],
-    "3.6": ["P","Motion aiming",0],
-    "8.1": ["Y","Text-to-speech, speech-to-text and ping system",0]
-  }},
+  e: [
+    {id:"1.2", s:"P", t:"Ally outlines; enemies can't be outlined", src:0},
+    {id:"1.3", s:"Y", t:"Choose enemy and ally UI colours", src:0},
+    {id:"2.1", s:"P", t:"Some speech subtitled; levels of subtitle coverage", src:0},
+    {id:"3.1", s:"Y", t:"Remap buttons", src:0},
+    {id:"3.6", s:"P", t:"Motion aiming", src:0},
+    {id:"8.1", s:"Y", t:"Text-to-speech, speech-to-text and ping system", src:0}
+  ]},
 { name: "Valorant",
   platforms: ["PC", "PlayStation", "Xbox"],
   sources: [
     ["Family Gaming Database: Valorant (c. 2025)", "https://www.familygamingdatabase.com/accessibility/Valorant"]
   ],
-  e: {
-    "1.1": ["N","Text is not adjustable",0],
-    "1.3": ["P","Enemy colour and crosshair can be changed",0],
-    "2.1": ["N","No subtitles for voice-overs",0],
-    "2.6": ["Y","Damage direction and bullet direction indicators",0],
-    "2.8": ["Y","Effect, voice and music volumes; HRTF",0],
-    "3.1": ["Y","Remap buttons",0],
-    "4.1": ["P","Fixed minimap option reduces on-screen motion",0],
-    "8.1": ["P","Ping system, but no text-to-speech or speech-to-text",0]
-  }},
+  e: [
+    {id:"1.1", s:"N", t:"Text is not adjustable", src:0},
+    {id:"1.3", s:"P", t:"Enemy colour and crosshair can be changed", src:0},
+    {id:"2.1", s:"N", t:"No subtitles for voice-overs", src:0},
+    {id:"2.6", s:"Y", t:"Damage direction and bullet direction indicators", src:0},
+    {id:"2.8", s:"Y", t:"Effect, voice and music volumes; HRTF", src:0},
+    {id:"3.1", s:"Y", t:"Remap buttons", src:0},
+    {id:"4.1", s:"P", t:"Fixed minimap option reduces on-screen motion", src:0},
+    {id:"8.1", s:"P", t:"Ping system, but no text-to-speech or speech-to-text", src:0}
+  ]},
 { name: "League of Legends",
   platforms: ["PC"],
   sources: [
     ["Can I Play That?: LoL champion sound notifications (Oct 2023)", "https://caniplaythat.com/2023/10/04/recent-accessibility-updates-league-of-legends-and-world-of-warcraft/"]
   ],
-  e: {
-    "2.6": ["P","Visual notifications for global sound effects",0]
-  }},
+  e: [
+    {id:"2.6", s:"P", t:"Visual notifications for global sound effects", src:0}
+  ]},
 { name: "Marvel Rivals",
   platforms: ["PC", "PlayStation", "Xbox"],
   sources: [
@@ -422,16 +431,16 @@ const games = [
     ["Two Average Gamers: cognitive accessibility guide (2025)", "https://www.twoaveragegamers.com/marvel-rivals-for-adhd-and-learning-differences-your-complete-cognitive-accessibility-guide/"],
     ["Steam forum: colourblind settings don't cover AoE rings (Jan 2025)", "https://steamcommunity.com/app/2767030/discussions/0/600768722043470623"]
   ],
-  e: {
-    "1.3": ["P","Enemy colours change, but red AoE rings and markers don't",3],
-    "2.1": ["Y","Spoken dialogue fully subtitled",0],
-    "2.5": ["Y","Subtitle size, colour and background",1],
-    "2.8": ["Y","Individual volume controls",0],
-    "3.1": ["Y","Full controller remapping",0],
-    "3.2": ["Y","Hold or toggle options",2],
-    "6.2": ["Y","Tutorial reminders available any time",0],
-    "7.1": ["P","Practice mode",0]
-  }},
+  e: [
+    {id:"1.3", s:"P", t:"Enemy colours change, but red AoE rings and markers don't (Steam forum)", src:3, on:"PC"},
+    {id:"2.1", s:"Y", t:"Spoken dialogue fully subtitled (PlayStation Store)", src:0, on:"PlayStation"},
+    {id:"2.5", s:"Y", t:"Subtitle size, colour and background", src:1},
+    {id:"2.8", s:"Y", t:"Individual volume controls (PlayStation Store)", src:0, on:"PlayStation"},
+    {id:"3.1", s:"Y", t:"Full controller remapping (PlayStation Store)", src:0, on:"PlayStation"},
+    {id:"3.2", s:"Y", t:"Hold or toggle options", src:2},
+    {id:"6.2", s:"Y", t:"Tutorial reminders available any time (PlayStation Store)", src:0, on:"PlayStation"},
+    {id:"7.1", s:"P", t:"Practice mode (PlayStation Store)", src:0, on:"PlayStation"}
+  ]},
 { name: "Baldur's Gate 3",
   platforms: ["PC", "PlayStation", "Xbox", "Mac"],
   sources: [
@@ -440,91 +449,118 @@ const games = [
     ["Family Gaming Database: BG3", "https://www.familygamingdatabase.com/accessibility/Baldurs+Gate+3"],
     ["Can I Play That?: subtitle size patch (Oct 2021)", "https://caniplaythat.com/2021/10/26/baldurs-gate-3-patch-adds-accessibility-improvements-such-as-subtitle-text-size/"]
   ],
-  e: {
-    "1.1": ["Y","Adjustable dialogue and book text size",1],
-    "1.2": ["P","Hotkey highlights interactable items",0],
-    "1.3": ["Y","Colourblind setting (Patch 4)",1],
-    "1.7": ["P","Map was hard to use with low vision (2023); map changes in Patch 7",0],
-    "2.1": ["Y","Full subtitling",0],
-    "2.5": ["Y","Subtitle resizing and background",0],
-    "3.4": ["Y","No quick reactions needed",2],
-    "6.4": ["Y","Turn-based combat; pause any time",3],
-    "7.2": ["Y","Custom difficulty (Patch 5)",1]
-  }},
+  e: [
+    {id:"1.1", s:"Y", t:"Adjustable dialogue and book text size", src:1},
+    {id:"1.2", s:"P", t:"Hotkey highlights interactable items", src:0},
+    {id:"1.3", s:"Y", t:"Colourblind setting (Patch 4)", src:1},
+    {id:"1.7", s:"P", t:"Map was hard to use with low vision (2023); map changes in Patch 7", src:0},
+    {id:"2.1", s:"Y", t:"Full subtitling", src:0},
+    {id:"2.5", s:"Y", t:"Subtitle resizing and background", src:0},
+    {id:"3.4", s:"Y", t:"No quick reactions needed", src:2},
+    {id:"6.4", s:"Y", t:"Turn-based combat; pause any time", src:3},
+    {id:"7.2", s:"Y", t:"Custom difficulty (Patch 5)", src:1}
+  ]},
 { name: "Rocket League",
   platforms: ["PC", "PlayStation", "Xbox", "Switch"],
   sources: [
     ["Family Gaming Database: Rocket League (Sep 2026)", "https://www.familygamingdatabase.com/accessibility/Rocket+League"]
   ],
-  e: {
-    "1.7": ["P","Optional arrow pointing to the ball",0],
-    "2.6": ["P","Directional visual cues",0],
-    "3.1": ["Y","Remap buttons",0],
-    "3.3": ["Y","No repeated pressing needed",0],
-    "3.5": ["Y","Camera can always point at the ball",0],
-    "7.1": ["Y","Select difficulty",0],
-    "7.3": ["Y","Mutators: slow motion, time warp, slower ball, bigger ball",0]
-  }},
+  e: [
+    {id:"1.7", s:"P", t:"Optional arrow pointing to the ball", src:0},
+    {id:"2.6", s:"P", t:"Directional visual cues", src:0},
+    {id:"3.1", s:"Y", t:"Remap buttons", src:0},
+    {id:"3.3", s:"Y", t:"No repeated pressing needed", src:0},
+    {id:"3.5", s:"Y", t:"Camera can always point at the ball", src:0},
+    {id:"7.1", s:"Y", t:"Select difficulty", src:0},
+    {id:"7.3", s:"Y", t:"Mutators: slow motion, time warp, slower ball, bigger ball", src:0}
+  ]},
 { name: "Genshin Impact",
   platforms: ["PC", "PlayStation", "Mobile"],
   sources: [
-    ["Family Gaming Database: Genshin Impact (last updated c. 2022)", "https://www.familygamingdatabase.com/accessibility/Genshin+Impact"]
+    ["Family Gaming Database: Genshin Impact (last updated c. 2022)", "https://www.familygamingdatabase.com/accessibility/Genshin+Impact"],
+    ["Can I Play That?: Genshin Impact accessibility menu deep dive (May 2021)", "https://caniplaythat.com/2021/05/06/genshin-impact-accessibility-menu-deep-dive/"]
   ],
-  e: {
-    "1.7": ["P","Map with waypoints",0],
-    "3.6": ["P","Gyro aiming on mobile",0],
-    "6.2": ["P","On-screen control reminders",0]
-  }},
+  e: [
+    {id:"1.7", s:"P", t:"Map with waypoints", src:0},
+    {id:"2.5", s:"P", t:"Subtitles can't be disabled or resized, and have no background; hard to read on bright scenes (2021)", src:1},
+    {id:"2.8", s:"Y", t:"Separate sliders for music, dialogue and effects (2021)", src:1},
+    {id:"3.1", s:"Y", t:"Extensive keyboard/mouse rebinding, including ESC key (2021)", src:1, on:"PC"},
+    {id:"3.1", s:"P", t:"Gameplay rebinding available, but menu navigation is locked (2021)", src:1, on:"PlayStation"},
+    {id:"3.5", s:"P", t:"Y-axis auto-reset toggle and adjustable camera sensitivity, on all input types (2021)", src:1},
+    {id:"3.6", s:"P", t:"Gyro aiming on mobile", src:0, on:"Mobile"},
+    {id:"6.2", s:"P", t:"On-screen control reminders", src:0}
+  ]},
 { name: "PUBG: Battlegrounds",
   platforms: ["PC", "PlayStation", "Xbox", "Mobile"],
   sources: [
     ["OsloMet master's thesis on deaf players in PUBG (2020)", "https://oda.oslomet.no/handle/10642/9018"]
   ],
-  e: {
-    "2.6": ["N","No visual feedback for sounds (as of 2020)",0],
-    "8.1": ["N","No text chat alternative to voice (as of 2020)",0]
-  }},
+  e: [
+    {id:"2.6", s:"N", t:"No visual feedback for sounds (as of 2020)", src:0},
+    {id:"8.1", s:"N", t:"No text chat alternative to voice (as of 2020)", src:0}
+  ]},
 { name: "Dota 2",
   platforms: ["PC"],
   sources: [
     ["Family Gaming Database: Dota 2", "https://www.familygamingdatabase.com/accessibility/DotA+2"]
   ],
-  e: {
-    "1.1": ["N","Chat is small white text over the game and can be hard to read",0],
-    "1.3": ["Y","Colour blind friendly",0],
-    "2.1": ["Y","All dialogue subtitled",0],
-    "3.1": ["Y","Remap buttons",0],
-    "4.1": ["Y","Top-down view with a mostly static background",0]
-  }},
+  e: [
+    {id:"1.1", s:"N", t:"Chat is small white text over the game and can be hard to read", src:0},
+    {id:"1.3", s:"Y", t:"Colour blind friendly", src:0},
+    {id:"2.1", s:"Y", t:"All dialogue subtitled", src:0},
+    {id:"3.1", s:"Y", t:"Remap buttons", src:0},
+    {id:"4.1", s:"Y", t:"Top-down view with a mostly static background", src:0}
+  ]},
 { name: "Grand Theft Auto V",
   platforms: ["PC", "PlayStation", "Xbox"],
   sources: [
     ["Family Gaming Database: GTA V (c. 2024)", "https://www.familygamingdatabase.com/accessibility/Grand+Theft+Auto+V"],
-    ["Can I Play That?: GTA V articles (2022–2023)", "https://caniplaythat.com/?p=8240"]
+    ["Can I Play That?: GTA V articles (2022–2023)", "https://caniplaythat.com/?p=8240"],
+    ["Can I Play That?: GTA V accessibility menu deep dive, PS5 (Mar 2022)", "https://caniplaythat.com/2022/03/16/gta-v-accessibility-menu-deep-dive-ps5/"]
   ],
-  e: {
-    "2.1": ["P","Some speech subtitled",0],
-    "2.5": ["N","Small subtitles in the PS5 version (2022)",1],
-    "2.6": ["P","Visual directional cues",0],
-    "3.1": ["Y","Remap buttons",0],
-    "3.3": ["P","Alternate sprint control in GTA Online (2023)",1]
-  }}
+  e: [
+    {id:"2.1", s:"P", t:"Some speech subtitled", src:0},
+    {id:"2.5", s:"N", t:"No option to increase subtitle size (PS5 review, 2022)", src:2, on:"PlayStation"},
+    {id:"2.6", s:"P", t:"Visual directional cues", src:0},
+    {id:"2.7", s:"Y", t:"Vibration toggle; three adaptive trigger intensity levels (PS5)", src:2, on:"PlayStation"},
+    {id:"2.8", s:"Y", t:"Independent sliders for effects, music and dialogue, plus a dialogue boost (PS5 review)", src:2, on:"PlayStation"},
+    {id:"3.1", s:"Y", t:"Remap buttons", src:0},
+    {id:"3.1", s:"Y", t:"Multiple control schemes (Standard, Alternative, Southpaw, FPS) plus sensitivity, deadzone and acceleration settings (PS5 review)", src:2, on:"PlayStation"},
+    {id:"3.3", s:"P", t:"Alternate sprint control in GTA Online (2023)", src:1},
+    {id:"4.1", s:"P", t:"Head bob and first-person ragdoll can be disabled (PS5 review)", src:2, on:"PlayStation"},
+    {id:"4.4", s:"Y", t:"Adjustable first-person field of view (PS5 review)", src:2, on:"PlayStation"},
+    {id:"6.3", s:"Y", t:"HUD and radar can be toggled off (PS5 review)", src:2, on:"PlayStation"}
+  ]}
 ];
+
+function buildRows(gameList) {
+  const out = [];
+  gameList.forEach(g => {
+    g.platforms.forEach(p => {
+      const byId = {};
+      g.e.forEach(r => { if (!r.on) byId[r.id] = r; });
+      g.e.forEach(r => { if (r.on === p) byId[r.id] = r; });
+      out.push({ name: g.name, platform: p, sources: g.sources, e: byId });
+    });
+  });
+  return out;
+}
+const rows = buildRows(games);
 
 const notes = {
   "Counter-Strike 2": "Only Counter-Strike: Global Offensive-era forum posts were found. CS2 is a rebuilt game, so they weren't used.",
   "Roblox (platform only)": "Covers Roblox's own settings. Each experience is made by a different developer and varies.",
-  "Genshin Impact": "The only source found was last updated around 2022.",
+  "Genshin Impact": "Sources found are from 2021 and c. 2022. Genshin has changed a lot since as a live-service game, so treat these as historical.",
   "PUBG: Battlegrounds": "The only source found is from 2020. The game may have changed since."
 };
 
 // Scoring
 function inCat(id, cat) { return cat === "all" || id.split(".")[0] === cat; }
-function tally(game, cat) {
+function tally(row, cat) {
   const t = { Y: 0, P: 0, N: 0, U: 0, applicable: 0 };
   criteria.forEach(([id]) => {
     if (!inCat(id, cat)) return;
-    const s = game.e[id]?.[0];
+    const s = row.e[id]?.s;
     if (s === "NA") return;
     t.applicable++;
     if (s === "Y" || s === "P" || s === "N") t[s]++; else t.U++;
@@ -561,16 +597,16 @@ platformFilters.addEventListener("change", e => {
 
 function render() {
   const catLabel = cats.find(c => c.id === currentCat).label;
-  const rows = games
-    .filter(g => selectedPlatforms.size === 0 || g.platforms.some(p => selectedPlatforms.has(p)))
-    .map(g => ({ g, t: tally(g, currentCat) }))
+  const ranked = rows
+    .filter(row => selectedPlatforms.size === 0 || selectedPlatforms.has(row.platform))
+    .map(row => ({ row, t: tally(row, currentCat) }))
     .filter(r => r.t.applicable > 0)
-    .sort((a, b) => b.t.score - a.t.score || b.t.coverage - a.t.coverage || a.g.name.localeCompare(b.g.name));
+    .sort((a, b) => b.t.score - a.t.score || b.t.coverage - a.t.coverage || a.row.name.localeCompare(b.row.name));
 
   const chart = document.getElementById("chart");
   chart.innerHTML = "";
 
-  if (rows.length === 0) {
+  if (ranked.length === 0) {
     const li = document.createElement("li");
     li.style.gridTemplateColumns = "1fr";
     li.textContent = "No games match this filter combination.";
@@ -580,14 +616,13 @@ function render() {
     return;
   }
 
-  rows.forEach(({ g, t }, i) => {
+  ranked.forEach(({ row, t }, i) => {
     const pct = n => (n / t.applicable * 100) + "%";
     const low = t.coverage < 25;
-    const platformTags = g.platforms.map(p => `<span class="platform-tag">${p}</span>`).join("");
     const li = document.createElement("li");
     li.innerHTML = `
       <span class="rank">${i + 1}</span>
-      <span class="name">${g.name}${platformTags}${low ? `<br><span class="flag">Not enough data</span>` : ""}</span>
+      <span class="name">${row.name}<span class="platform-tag">${row.platform}</span>${low ? `<br><span class="flag">Not enough data</span>` : ""}</span>
       <span class="track" aria-hidden="true">
         <span class="seg-met" style="width:${pct(t.Y)}"></span>
         <span class="seg-part" style="width:${pct(t.P)}"></span>
@@ -596,39 +631,39 @@ function render() {
       </span>
       <span class="score">${t.score}<span class="sr"> out of 100</span></span>
       <span class="cov">${t.coverage}% known</span>
-      <span class="sr">${t.Y} met, ${t.P} partial, ${t.N} missing, ${t.U} unknown, out of ${t.applicable} guidelines. Available on ${g.platforms.join(", ")}.</span>`;
+      <span class="sr">${t.Y} met, ${t.P} partial, ${t.N} missing, ${t.U} unknown, out of ${t.applicable} guidelines. ${row.platform} version.</span>`;
     chart.appendChild(li);
   });
 
   document.getElementById("status").textContent =
-    `Ranked by ${catLabel}. Top: ${rows[0].g.name}, verified score ${rows[0].t.score}.`;
+    `Ranked by ${catLabel}. Top: ${ranked[0].row.name} (${ranked[0].row.platform}), verified score ${ranked[0].t.score}.`;
 }
 
 // Evidence
 function buildEvidence() {
   const wrap = document.getElementById("evidence");
-  [...games].sort((a, b) => tally(b, "all").score - tally(a, "all").score).forEach(g => {
-    const t = tally(g, "all");
-    const known = criteria.filter(([id]) => g.e[id]);
-    const unknown = criteria.filter(([id]) => !g.e[id]).map(([id]) => id);
+  [...rows].sort((a, b) => tally(b, "all").score - tally(a, "all").score).forEach(row => {
+    const t = tally(row, "all");
+    const known = criteria.filter(([id]) => row.e[id]);
+    const unknown = criteria.filter(([id]) => !row.e[id]).map(([id]) => id);
+    const idSlug = slug(row.name) + "-" + slug(row.platform);
     const d = document.createElement("details");
     d.className = "game";
     d.innerHTML = `
-      <summary>${g.name} <span>score ${t.score}, ${t.coverage}% known</span></summary>
-      <p class="platforms-line"><strong>Platform:</strong> ${g.platforms.join(", ")}</p>
-      ${notes[g.name] ? `<p>${notes[g.name]}</p>` : ""}
+      <summary>${row.name} <span class="platform-tag">${row.platform}</span> <span>score ${t.score}, ${t.coverage}% known</span></summary>
+      ${notes[row.name] ? `<p>${notes[row.name]}</p>` : ""}
       ${known.length ? `
       <div class="table-wrap"><table>
-        <caption class="sr">Evidence for ${g.name}</caption>
+        <caption class="sr">Evidence for ${row.name} (${row.platform})</caption>
         <thead><tr><th scope="col">Guideline</th><th scope="col">Status</th><th scope="col">Evidence</th><th scope="col">Source</th></tr></thead>
         <tbody>${known.map(([id, name]) => {
-          const [s, ev, src] = g.e[id];
-          return `<tr><th scope="row">${id} ${name}</th><td class="st st-${s}">${STATUS[s]}</td><td>${ev}</td><td><a href="#src-${slug(g.name)}-${src}">[${src + 1}]</a></td></tr>`;
+          const rec = row.e[id];
+          return `<tr><th scope="row">${id} ${name}</th><td class="st st-${rec.s}">${STATUS[rec.s]}</td><td>${rec.t}</td><td><a href="#src-${idSlug}-${rec.src}">[${rec.src + 1}]</a></td></tr>`;
         }).join("")}</tbody>
-      </table></div>` : `<p>No sourced evidence found for any guideline.</p>`}
+      </table></div>` : `<p>No sourced evidence found for any guideline on this platform.</p>`}
       <p class="unknown-list"><strong>Unknown (${unknown.length}):</strong> ${unknown.join(", ")}</p>
-      ${g.sources.length ? `<p><strong>Sources</strong></p><ol class="sources">${
-        g.sources.map(([label, url], i) => `<li id="src-${slug(g.name)}-${i}"><a href="${url}">${label}</a></li>`).join("")
+      ${row.sources.length ? `<p><strong>Sources</strong></p><ol class="sources">${
+        row.sources.map(([label, url], i) => `<li id="src-${idSlug}-${i}"><a href="${url}">${label}</a></li>`).join("")
       }</ol>` : ""}`;
     wrap.appendChild(d);
   });
