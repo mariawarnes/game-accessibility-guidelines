@@ -65,12 +65,15 @@
   .legend .k-unk::before  { background: repeating-linear-gradient(90deg, var(--unk) 0 2px, transparent 2px 5px); border: 1px solid var(--unk); }
 
   ol.chart { list-style: none; margin: 0; padding: 0; }
-  ol.chart li {
+  ol.chart li { border-bottom: 1px solid var(--line); }
+  ol.chart .row-link {
     display: grid; grid-template-columns: 2rem 13rem 1fr 4rem 5.5rem;
-    align-items: center; gap: .6rem; padding: .35rem 0; border-bottom: 1px solid var(--line);
+    align-items: center; gap: .6rem; padding: .35rem 0;
+    color: inherit; text-decoration: none; cursor: pointer;
   }
+  ol.chart .row-link:hover, ol.chart .row-link:focus-visible { background: var(--panel); }
   @media (max-width: 44rem) {
-    ol.chart li { grid-template-columns: 1.75rem 1fr 3.5rem; }
+    ol.chart .row-link { grid-template-columns: 1.75rem 1fr 3.5rem; }
     ol.chart .track { grid-column: 2 / 4; grid-row: 2; }
     ol.chart .cov { grid-column: 2 / 4; grid-row: 3; text-align: left; }
   }
@@ -623,6 +626,7 @@ function render() {
     const low = t.coverage < 25;
     const li = document.createElement("li");
     li.innerHTML = `
+      <a class="row-link" href="#${rowId(row)}">
       <span class="rank">${i + 1}</span>
       <span class="name">${row.name}<span class="platform-tag">${row.platform}</span>${low ? `<br><span class="flag">Not enough data</span>` : ""}</span>
       <span class="track" aria-hidden="true">
@@ -633,7 +637,8 @@ function render() {
       </span>
       <span class="score">${t.score}<span class="sr"> out of 100</span></span>
       <span class="cov">${t.coverage}% known</span>
-      <span class="sr">${t.Y} met, ${t.P} partial, ${t.N} missing, ${t.U} unknown, out of ${t.applicable} guidelines. ${row.platform} version.</span>`;
+      <span class="sr">${t.Y} met, ${t.P} partial, ${t.N} missing, ${t.U} unknown, out of ${t.applicable} guidelines. ${row.platform} version. View evidence.</span>
+      </a>`;
     chart.appendChild(li);
   });
 
@@ -651,6 +656,7 @@ function buildEvidence() {
     const idSlug = slug(row.name) + "-" + slug(row.platform);
     const d = document.createElement("details");
     d.className = "game";
+    d.id = rowId(row);
     d.innerHTML = `
       <summary>${row.name} <span class="platform-tag">${row.platform}</span> <span>score ${t.score}, ${t.coverage}% known</span></summary>
       ${notes[row.name] ? `<p>${notes[row.name]}</p>` : ""}
@@ -671,9 +677,30 @@ function buildEvidence() {
   });
 }
 function slug(s) { return s.toLowerCase().replace(/[^a-z0-9]+/g, "-"); }
+function rowId(row) { return "game-" + slug(row.name) + "-" + slug(row.platform); }
+
+function openRowFromHash() {
+  const id = decodeURIComponent(location.hash.slice(1));
+  if (!id) return;
+  const details = document.getElementById(id);
+  if (details && details.classList.contains("game")) {
+    details.open = true;
+    details.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
+// Chart rows link to their evidence entry below; open it before the browser jumps there.
+document.getElementById("chart").addEventListener("click", e => {
+  const link = e.target.closest(".row-link");
+  if (!link) return;
+  const details = document.getElementById(link.getAttribute("href").slice(1));
+  if (details) details.open = true;
+});
+window.addEventListener("hashchange", openRowFromHash);
 
 buildEvidence();
 render();
+openRowFromHash();
 </script>
 </body>
 </html>
