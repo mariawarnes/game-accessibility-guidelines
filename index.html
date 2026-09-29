@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Game Accessibility Guidelines – Barriers and Solutions</title>
+<meta name="description" content="A checklist of common game accessibility barriers and the features that solve them.">
+<style>
+  :root {
+    --blue: #005a9c;
+    --blue-dark: #003d6b;
+    --text: #1a1a1a;
+    --muted: #4a4a4a;
+    --line: #d0d7de;
+    --bg: #ffffff;
+    --panel: #f3f6f9;
+    --focus: #ffbf47;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --blue: #7cb8ff;
+      --blue-dark: #a8d0ff;
+      --text: #eaeaea;
+      --muted: #b8b8b8;
+      --line: #3a4450;
+      --bg: #14181c;
+      --panel: #1d232a;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-padding-top: 1rem; }
+  body {
+    margin: 0;
+    font-family: "Noto Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--bg);
+  }
+  a { color: var(--blue); }
+  a:hover { color: var(--blue-dark); }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+  .skip {
+    position: absolute; left: -9999px; top: 0;
+    background: var(--blue); color: #fff; padding: .5rem 1rem;
+  }
+  .skip:focus { left: 1rem; top: 1rem; z-index: 10; }
+
+  header.site {
+    background: var(--blue);
+    color: #fff;
+    padding: 1.5rem 1.25rem;
+  }
+  header.site p { margin: 0 0 .25rem; opacity: .9; }
+  header.site h1 { margin: 0; font-size: 1.9rem; line-height: 1.25; }
+  @media (prefers-color-scheme: dark) {
+    header.site { background: #0b3a61; }
+  }
+
+  .wrap {
+    max-width: 72rem;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 16rem 1fr;
+    gap: 2.5rem;
+    padding: 2rem 1.25rem 4rem;
+  }
+  @media (max-width: 52rem) {
+    .wrap { grid-template-columns: 1fr; gap: 1.5rem; }
+  }
+
+  nav.toc {
+    position: sticky; top: 1rem; align-self: start;
+    border-left: 4px solid var(--blue);
+    background: var(--panel);
+    padding: 1rem 1.25rem;
+  }
+  @media (max-width: 52rem) { nav.toc { position: static; } }
+  nav.toc h2 { font-size: 1rem; margin: 0 0 .5rem; }
+  nav.toc ol { margin: 0; padding-left: 1.25rem; }
+  nav.toc li { margin: .25rem 0; }
+
+  main { max-width: 46rem; }
+  .intro { color: var(--muted); }
+
+  section.principle { margin-top: 3rem; }
+  section.principle > h2 {
+    font-size: 1.6rem;
+    border-bottom: 2px solid var(--blue);
+    padding-bottom: .35rem;
+    margin-bottom: 1rem;
+  }
+  .num { color: var(--blue); font-weight: 700; margin-right: .4rem; }
+
+  article.sc {
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--blue);
+    padding: .9rem 1.1rem;
+    margin: 1rem 0;
+  }
+  article.sc h3 { margin: 0 0 .4rem; font-size: 1.1rem; }
+  article.sc dl { margin: 0; }
+  article.sc dt { font-weight: 700; font-size: .95rem; margin-top: .4rem; }
+  article.sc dd { margin: 0 0 0 0; }
+  article.sc ul { margin: .2rem 0 0; padding-left: 1.25rem; }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 1.5rem 1.25rem;
+    color: var(--muted);
+    font-size: .95rem;
+    max-width: 72rem;
+    margin: 0 auto;
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site">
+  <p>Checklist</p>
+  <h1>Game Accessibility Guidelines</h1>
+</header>
+
+<div class="wrap">
+  <nav class="toc" aria-label="Contents">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#vision">Vision</a></li>
+      <li><a href="#hearing">Hearing</a></li>
+      <li><a href="#motor">Motor</a></li>
+      <li><a href="#motion">Motion sickness</a></li>
+      <li><a href="#photo">Photosensitivity</a></li>
+      <li><a href="#cognitive">Cognitive</a></li>
+      <li><a href="#difficulty">Difficulty</a></li>
+      <li><a href="#social">Social and communication</a></li>
+      <li><a href="#around">Before and around the game</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <p class="intro">Each guideline names a barrier players face, then the features that remove it. Drawn from the Xbox Accessibility Guidelines and the accessibility options in The Last of Us Part II and God of War Ragnarök.</p>
+
+    <!-- 1 VISION -->
+    <section class="principle" id="vision" aria-labelledby="h-vision">
+      <h2 id="h-vision"><span class="num">1</span>Vision</h2>
+
+      <article class="sc" id="sc-1-1"><h3><span class="num">1.1</span>Readable text</h3><dl>
+        <dt>Barrier</dt><dd>Text is too small to read.</dd>
+        <dt>Solutions</dt><dd><ul><li>UI text size slider</li><li>Separate subtitle size</li><li>Icon and HUD scale</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-1-2"><h3><span class="num">1.2</span>Contrast</h3><dl>
+        <dt>Barrier</dt><dd>Characters and objects blend into the background.</dd>
+        <dt>Solutions</dt><dd><ul><li>High contrast mode: mute the world, colour-code allies, enemies, items and hazards</li><li>Custom colour per category</li><li>Dark backing behind HUD elements</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-1-3"><h3><span class="num">1.3</span>Colour vision</h3><dl>
+        <dt>Barrier</dt><dd>Information relies on colours some players can't tell apart.</dd>
+        <dt>Solutions</dt><dd><ul><li>Protanopia, deuteranopia and tritanopia modes</li><li>Never use colour alone; add shapes or icons</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-1-4"><h3><span class="num">1.4</span>Magnification</h3><dl>
+        <dt>Barrier</dt><dd>Fine detail is hard to see.</dd>
+        <dt>Solutions</dt><dd><ul><li>Screen magnifier or zoom</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-1-5"><h3><span class="num">1.5</span>Screen reading</h3><dl>
+        <dt>Barrier</dt><dd>Blind players can't read menus or on-screen text.</dd>
+        <dt>Solutions</dt><dd><ul><li>Screen reader / text-to-speech for all UI</li><li>Auto-enable when console TTS is on</li><li>A button that reads out current status</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-1-6"><h3><span class="num">1.6</span>Audio alternatives to visuals</h3><dl>
+        <dt>Barrier</dt><dd>Important cues are only shown visually.</dd>
+        <dt>Solutions</dt><dd><ul><li>Audio cues for jumps, ledges, pickups and attacks</li><li>Audio cue glossary</li><li>Separate volume slider for cues</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-1-7"><h3><span class="num">1.7</span>Navigation</h3><dl>
+        <dt>Barrier</dt><dd>Players can't find where to go.</dd>
+        <dt>Solutions</dt><dd><ul><li>Navigation assist: one button points the camera at the objective</li><li>Scan / ping for items and enemies, with pitch showing height</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-1-8"><h3><span class="num">1.8</span>Safe movement</h3><dl>
+        <dt>Barrier</dt><dd>Players fall off edges they can't see.</dd>
+        <dt>Solutions</dt><dd><ul><li>Ledge guard with sound and vibration warning</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-1-9"><h3><span class="num">1.9</span>Targeting</h3><dl>
+        <dt>Barrier</dt><dd>Aiming at unseen targets is impossible.</dd>
+        <dt>Solutions</dt><dd><ul><li>Lock-on</li><li>Auto-target, including off-screen</li><li>Assist strength slider</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-1-10"><h3><span class="num">1.10</span>Visual puzzles</h3><dl>
+        <dt>Barrier</dt><dd>Puzzles depend on sight.</dd>
+        <dt>Solutions</dt><dd><ul><li>Skip puzzle option</li><li>Puzzle aim assist</li><li>Visual guides, such as a bounce path</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-1-11"><h3><span class="num">1.11</span>In-world text</h3><dl>
+        <dt>Barrier</dt><dd>Signs and notes in the world can't be read.</dd>
+        <dt>Solutions</dt><dd><ul><li>Prompt to read aloud or translate</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-1-12"><h3><span class="num">1.12</span>Cutscenes</h3><dl>
+        <dt>Barrier</dt><dd>Story told through visuals is missed.</dd>
+        <dt>Solutions</dt><dd><ul><li>Audio description</li></ul></dd>
+      </dl></article>
+    </section>
+
+    <!-- 2 HEARING -->
+    <section class="principle" id="hearing" aria-labelledby="h-hearing">
+      <h2 id="h-hearing"><span class="num">2</span>Hearing</h2>
+
+      <article class="sc" id="sc-2-1"><h3><span class="num">2.1</span>Dialogue</h3><dl>
+        <dt>Barrier</dt><dd>Spoken dialogue is missed.</dd>
+        <dt>Solutions</dt><dd><ul><li>Subtitles for story and for combat / ambient chatter</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-2-2"><h3><span class="num">2.2</span>Non-speech sound</h3><dl>
+        <dt>Barrier</dt><dd>Important sounds are missed.</dd>
+        <dt>Solutions</dt><dd><ul><li>Captions for non-speech audio</li><li>Caption colour option</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-2-3"><h3><span class="num">2.3</span>Speaker identification</h3><dl>
+        <dt>Barrier</dt><dd>It's unclear who is talking.</dd>
+        <dt>Solutions</dt><dd><ul><li>Speaker names</li><li>Unique colour per speaker</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-2-4"><h3><span class="num">2.4</span>Sound direction</h3><dl>
+        <dt>Barrier</dt><dd>It's unclear where a sound comes from.</dd>
+        <dt>Solutions</dt><dd><ul><li>Direction arrows for speech and sounds</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-2-5"><h3><span class="num">2.5</span>Subtitle presentation</h3><dl>
+        <dt>Barrier</dt><dd>Subtitles are hard to read.</dd>
+        <dt>Solutions</dt><dd><ul><li>Size options</li><li>Background opacity</li><li>Background blur</li><li>Text colour</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-2-6"><h3><span class="num">2.6</span>Visual threat cues</h3><dl>
+        <dt>Barrier</dt><dd>Threats are only signalled by sound.</dd>
+        <dt>Solutions</dt><dd><ul><li>Stealth awareness indicators</li><li>Damage direction indicators</li><li>Off-screen enemy indicator</li><li>Pickup notifications</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-2-7"><h3><span class="num">2.7</span>Haptics</h3><dl>
+        <dt>Barrier</dt><dd>No alternative to sound feedback.</dd>
+        <dt>Solutions</dt><dd><ul><li>Vibration cues for key events</li><li>Vibration strength slider</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-2-8"><h3><span class="num">2.8</span>Audio mix</h3><dl>
+        <dt>Barrier</dt><dd>Dialogue is lost in the mix.</dd>
+        <dt>Solutions</dt><dd><ul><li>Separate volume sliders</li><li>Voice boost</li><li>Centre-pan dialogue</li><li>Mono audio</li><li>Left / right balance</li></ul></dd>
+      </dl></article>
+    </section>
+
+    <!-- 3 MOTOR -->
+    <section class="principle" id="motor" aria-labelledby="h-motor">
+      <h2 id="h-motor"><span class="num">3</span>Motor</h2>
+
+      <article class="sc" id="sc-3-1"><h3><span class="num">3.1</span>Remapping</h3><dl>
+        <dt>Barrier</dt><dd>Players can't reach or press some buttons.</dd>
+        <dt>Solutions</dt><dd><ul><li>Full control remapping</li><li>One-handed presets</li><li>Controller orientation</li><li>Stick swap</li><li>Shortcut gestures</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-3-2"><h3><span class="num">3.2</span>Holds</h3><dl>
+        <dt>Barrier</dt><dd>Holding buttons is painful.</dd>
+        <dt>Solutions</dt><dd><ul><li>Toggle option for every hold: aim, block, sprint, crafting</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-3-3"><h3><span class="num">3.3</span>Repeated presses</h3><dl>
+        <dt>Barrier</dt><dd>Button mashing is difficult.</dd>
+        <dt>Solutions</dt><dd><ul><li>Hold instead of mash</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-3-4"><h3><span class="num">3.4</span>Precision inputs</h3><dl>
+        <dt>Barrier</dt><dd>Quick-time events and mini-games need speed and precision.</dd>
+        <dt>Solutions</dt><dd><ul><li>Single-button or auto-complete mode</li><li>Longer timing windows</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-3-5"><h3><span class="num">3.5</span>Camera control</h3><dl>
+        <dt>Barrier</dt><dd>Using two sticks at once is hard.</dd>
+        <dt>Solutions</dt><dd><ul><li>Camera assist</li><li>Auto-recentre on attack</li><li>Strafe assist</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-3-6"><h3><span class="num">3.6</span>Aiming</h3><dl>
+        <dt>Barrier</dt><dd>Aiming needs fine control.</dd>
+        <dt>Solutions</dt><dd><ul><li>Lock-on and aim assist</li><li>Slow motion while aiming</li><li>Gyro aim with tremor filter</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-3-7"><h3><span class="num">3.7</span>Traversal</h3><dl>
+        <dt>Barrier</dt><dd>Climbing and jumping need complex inputs.</dd>
+        <dt>Solutions</dt><dd><ul><li>Traversal assist: auto climb, vault and jump</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-3-8"><h3><span class="num">3.8</span>Reduced busywork</h3><dl>
+        <dt>Barrier</dt><dd>Frequent small actions add fatigue.</dd>
+        <dt>Solutions</dt><dd><ul><li>Auto pick-up</li><li>Auto weapon swap</li><li>Auto equip</li><li>Auto sprint</li><li>Fast menu holds</li><li>Infinite breath</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-3-9"><h3><span class="num">3.9</span>Input devices</h3><dl>
+        <dt>Barrier</dt><dd>Standard controllers don't suit everyone.</dd>
+        <dt>Solutions</dt><dd><ul><li>Support adaptive controllers</li><li>Support multiple input types</li></ul></dd>
+      </dl></article>
+    </section>
+
+    <!-- 4 MOTION -->
+    <section class="principle" id="motion" aria-labelledby="h-motion">
+      <h2 id="h-motion"><span class="num">4</span>Motion sickness</h2>
+
+      <article class="sc" id="sc-4-1"><h3><span class="num">4.1</span>Camera movement</h3><dl>
+        <dt>Barrier</dt><dd>Shake, sway and fast camera movement cause nausea.</dd>
+        <dt>Solutions</dt><dd><ul><li>Camera shake slider</li><li>Sway / head bob slider</li><li>Camera rotation speed sliders</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-4-2"><h3><span class="num">4.2</span>Screen effects</h3><dl>
+        <dt>Barrier</dt><dd>Blur, grain and full-screen effects are disorienting.</dd>
+        <dt>Solutions</dt><dd><ul><li>Motion blur slider</li><li>Film grain slider</li><li>Toggle full-screen status effects</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-4-3"><h3><span class="num">4.3</span>Cinematic camera</h3><dl>
+        <dt>Barrier</dt><dd>Some camera shots are disorienting.</dd>
+        <dt>Solutions</dt><dd><ul><li>Toggle dolly zoom</li><li>Cinematic smoothing</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-4-4"><h3><span class="num">4.4</span>Field of view</h3><dl>
+        <dt>Barrier</dt><dd>A narrow or close view feels claustrophobic.</dd>
+        <dt>Solutions</dt><dd><ul><li>Field of view slider</li><li>Camera distance slider</li><li>Persistent centre dot (size and colour)</li></ul></dd>
+      </dl></article>
+    </section>
+
+    <!-- 5 PHOTO -->
+    <section class="principle" id="photo" aria-labelledby="h-photo">
+      <h2 id="h-photo"><span class="num">5</span>Photosensitivity</h2>
+
+      <article class="sc" id="sc-5-1"><h3><span class="num">5.1</span>Flashing</h3><dl>
+        <dt>Barrier</dt><dd>Flashing effects can trigger seizures.</dd>
+        <dt>Solutions</dt><dd><ul><li>Reduce flashing option</li><li>HUD flash toggle</li><li>Test against flash limits (e.g. Harding test)</li></ul></dd>
+      </dl></article>
+    </section>
+
+    <!-- 6 COGNITIVE -->
+    <section class="principle" id="cognitive" aria-labelledby="h-cognitive">
+      <h2 id="h-cognitive"><span class="num">6</span>Cognitive</h2>
+
+      <article class="sc" id="sc-6-1"><h3><span class="num">6.1</span>Settings setup</h3><dl>
+        <dt>Barrier</dt><dd>Too many settings to work through.</dd>
+        <dt>Solutions</dt><dd><ul><li>Presets for vision, hearing, motor and motion</li><li>Highlight changed settings</li><li>Reset all</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-6-2"><h3><span class="num">6.2</span>Remembering goals</h3><dl>
+        <dt>Barrier</dt><dd>Players forget what to do next.</dd>
+        <dt>Solutions</dt><dd><ul><li>Hints on demand</li><li>Objective reminder</li><li>Codex of tutorials</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-6-3"><h3><span class="num">6.3</span>Visual clutter</h3><dl>
+        <dt>Barrier</dt><dd>A busy screen is overwhelming.</dd>
+        <dt>Solutions</dt><dd><ul><li>Toggle each HUD element separately</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-6-4"><h3><span class="num">6.4</span>Time limits</h3><dl>
+        <dt>Barrier</dt><dd>Timers create pressure.</dd>
+        <dt>Solutions</dt><dd><ul><li>Remove or extend time limits</li><li>Pause anywhere</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-6-5"><h3><span class="num">6.5</span>Menu clarity</h3><dl>
+        <dt>Barrier</dt><dd>Menus are confusing.</dd>
+        <dt>Solutions</dt><dd><ul><li>Consistent navigation</li><li>Clear focus highlight</li><li>Tooltips</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-6-6"><h3><span class="num">6.6</span>Mistakes</h3><dl>
+        <dt>Barrier</dt><dd>Accidental choices can't be reversed.</dd>
+        <dt>Solutions</dt><dd><ul><li>Confirm destructive actions</li><li>Undo</li></ul></dd>
+      </dl></article>
+    </section>
+
+    <!-- 7 DIFFICULTY -->
+    <section class="principle" id="difficulty" aria-labelledby="h-difficulty">
+      <h2 id="h-difficulty"><span class="num">7</span>Difficulty</h2>
+
+      <article class="sc" id="sc-7-1"><h3><span class="num">7.1</span>Overall challenge</h3><dl>
+        <dt>Barrier</dt><dd>The game is too hard.</dd>
+        <dt>Solutions</dt><dd><ul><li>Multiple difficulty levels</li><li>Change difficulty any time</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-7-2"><h3><span class="num">7.2</span>Granular tuning</h3><dl>
+        <dt>Barrier</dt><dd>Only one kind of challenge is the problem.</dd>
+        <dt>Solutions</dt><dd><ul><li>Separate sliders for damage taken, enemy aggression, stealth and resources</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-7-3"><h3><span class="num">7.3</span>Targeted modifiers</h3><dl>
+        <dt>Barrier</dt><dd>Specific mechanics block progress.</dd>
+        <dt>Solutions</dt><dd><ul><li>Enemies don't flank</li><li>Invisible while prone</li><li>Enhanced dodge</li><li>Easier boss retries</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-7-4"><h3><span class="num">7.4</span>Forgiveness</h3><dl>
+        <dt>Barrier</dt><dd>Failure is punishing.</dd>
+        <dt>Solutions</dt><dd><ul><li>More checkpoints</li><li>No achievements locked behind difficulty</li></ul></dd>
+      </dl></article>
+    </section>
+
+    <!-- 8 SOCIAL -->
+    <section class="principle" id="social" aria-labelledby="h-social">
+      <h2 id="h-social"><span class="num">8</span>Social and communication</h2>
+
+      <article class="sc" id="sc-8-1"><h3><span class="num">8.1</span>Voice chat</h3><dl>
+        <dt>Barrier</dt><dd>Some players can't hear or speak in voice chat.</dd>
+        <dt>Solutions</dt><dd><ul><li>Speech-to-text and text-to-speech chat</li><li>Ping systems</li><li>Quick chat</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-8-2"><h3><span class="num">8.2</span>Safety</h3><dl>
+        <dt>Barrier</dt><dd>Toxic players harm the experience.</dd>
+        <dt>Solutions</dt><dd><ul><li>Mute, block and report</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-8-3"><h3><span class="num">8.3</span>Wellbeing</h3><dl>
+        <dt>Barrier</dt><dd>Content or long sessions affect mental health.</dd>
+        <dt>Solutions</dt><dd><ul><li>Content warnings</li><li>Break reminders</li></ul></dd>
+      </dl></article>
+    </section>
+
+    <!-- 9 AROUND -->
+    <section class="principle" id="around" aria-labelledby="h-around">
+      <h2 id="h-around"><span class="num">9</span>Before and around the game</h2>
+
+      <article class="sc" id="sc-9-1"><h3><span class="num">9.1</span>First launch</h3><dl>
+        <dt>Barrier</dt><dd>Players can't find settings before play starts.</dd>
+        <dt>Solutions</dt><dd><ul><li>Show accessibility options before gameplay</li><li>Auto-detect console settings like TTS and mono audio</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-9-2"><h3><span class="num">9.2</span>Documentation</h3><dl>
+        <dt>Barrier</dt><dd>Players can't tell if a game is playable before buying.</dd>
+        <dt>Solutions</dt><dd><ul><li>Publish a full accessibility feature list</li></ul></dd>
+      </dl></article>
+
+      <article class="sc" id="sc-9-3"><h3><span class="num">9.3</span>Support</h3><dl>
+        <dt>Barrier</dt><dd>Help channels aren't accessible.</dd>
+        <dt>Solutions</dt><dd><ul><li>Offer accessible support channels</li></ul></dd>
+      </dl></article>
+    </section>
+  </main>
+</div>
+
+<footer>
+  <p>Sources:
+    <a href="https://learn.microsoft.com/en-us/xbox/accessibility/guidelines">Xbox Accessibility Guidelines</a>,
+    <a href="https://www.playstation.com/en-gb/games/the-last-of-us-part-ii/accessibility/">The Last of Us Part II accessibility</a>,
+    <a href="https://www.playstation.com/en-gb/games/god-of-war-ragnarok/accessibility/">God of War Ragnarök accessibility</a>.
+  </p>
+</footer>
+</body>
+</html>
