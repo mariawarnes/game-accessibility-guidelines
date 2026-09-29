@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Game Accessibility Scores – Video Game Accessibility Guidelines (VGAG)</title>
-<meta name="description" content="Evidence-based accessibility scores for 20 popular games. Every status is sourced; missing evidence is marked Unknown.">
+<meta name="description" content="Evidence-based accessibility scores for 22 popular games. Every status is sourced; missing evidence is marked Unknown.">
 <style>
   :root {
     --blue: #005a9c; --blue-dark: #003d6b;
@@ -111,7 +111,7 @@
 
 <header class="site">
   <p>Video Game Accessibility Guidelines (VGAG)</p>
-  <h1>Accessibility scores: 20 popular games</h1>
+  <h1>Accessibility scores: 22 popular games</h1>
 </header>
 
 <nav class="site" aria-label="Site">
@@ -593,6 +593,111 @@ const games = [
     {id:"4.1", s:"P", t:"Head bob and first-person ragdoll can be disabled (PS5 review)", src:2, on:"PlayStation"},
     {id:"4.4", s:"Y", t:"Adjustable first-person field of view (PS5 review)", src:2, on:"PlayStation"},
     {id:"6.3", s:"Y", t:"HUD and radar can be toggled off (PS5 review)", src:2, on:"PlayStation"}
+  ]},
+{ name: "God of War Ragnarök",
+  platforms: ["PlayStation", "PC"],
+  sources: [
+    ["PlayStation: God of War Ragnarök accessibility", "https://www.playstation.com/en-us/games/god-of-war-ragnarok/accessibility/"],
+    ["Can I Play That?: God of War Ragnarök accessibility review (Nov 2022)", "https://caniplaythat.com/2022/11/03/god-of-war-ragnarok-accessibility-review/"],
+    ["Access-Ability: God of War Ragnarök accessibility review (Nov 2022)", "https://access-ability.uk/2022/11/03/god-of-war-ragnarok-accessibility-review/"],
+    ["PlayStation Blog: Ragnarök brings new features to PC (Sep 2024)", "https://blog.playstation.com/2024/09/18/god-of-war-ragnarok-brings-a-host-of-new-features-to-pc-available-tomorrow/"]
+  ],
+  e: [
+    {id:"1.1", s:"Y", t:"UI text size and subtitle/caption size each adjustable up to XX-Large", src:0},
+    {id:"1.2", s:"P", t:"High Contrast HUD and 14 colour presets, but reviewers found it the 'least vibrant' of PlayStation's first-party titles — colours wash out in bright light and shadow", src:2},
+    {id:"1.3", s:"Y", t:"Colour filters (red-green/green-red/blue-yellow) plus 10 individually recolourable UI categories", src:0},
+    {id:"1.5", s:"P", t:"Screen reader on by default at first boot (English only), but menus, skills, armour, weapons, maps, goals and codex are largely unnarrated", src:1},
+    {id:"1.6", s:"Y", t:"Audio cue toggle for available actions, with a glossary", src:0},
+    {id:"1.7", s:"P", t:"Navigation Assist orients the camera to the objective, but needs constant reactivation, gives no compass early on, and pathfinds 'as the crow flies'", src:1},
+    {id:"1.9", s:"Y", t:"Tiered lock-on (Classic/Auto-Target/Auto-Target+)", src:0},
+    {id:"1.10", s:"Y", t:"Extended puzzle timing, puzzle aim assist, and on-screen arc-path solutions", src:0},
+    {id:"1.12", s:"Y", t:"Cinematic Audio Description for cutscenes (PC version)", src:3, on:"PC"},
+    {id:"2.1", s:"Y", t:"Subtitles toggle", src:0},
+    {id:"2.2", s:"Y", t:"Captions for non-speech audio, though a few puzzle-critical sounds (e.g. lift descent) go uncaptioned", src:1},
+    {id:"2.3", s:"Y", t:"Speaker names and name-specific colours", src:0},
+    {id:"2.4", s:"Y", t:"Direction indicator arrow in captions", src:0},
+    {id:"2.5", s:"Y", t:"Size, background, blur, and 8 colour options for subtitles and captions, with live preview", src:0},
+    {id:"2.7", s:"P", t:"Vibration strength slider; adaptive trigger effects present but not exposed as a setting", src:1},
+    {id:"2.8", s:"Y", t:"Individual dialogue/music/effects/speaker volume, mono audio option, centre-panned dialogue, dialogue boost", src:0},
+    {id:"3.1", s:"Y", t:"Full remapping with three custom control layouts (though single-stick play still isn't achievable)", src:1},
+    {id:"3.2", s:"Y", t:"Hold-or-toggle options for aim and block", src:0},
+    {id:"3.3", s:"Y", t:"Repeated presses convertible to holds", src:0},
+    {id:"3.4", s:"P", t:"Mini-game style can simplify QTEs to a single button, but they can't be disabled outright and late-game ones loop on failure", src:1},
+    {id:"3.5", s:"Y", t:"Recentre camera on attack, tiered strafe assist", src:0},
+    {id:"3.6", s:"Y", t:"Tiered lock-on and aim assist for combat and puzzles, gyro aiming available", src:0},
+    {id:"3.7", s:"Y", t:"Tiered Traversal Assist automates vaulting, mantling and jumping (grappling and companion-boosting stay manual)", src:1},
+    {id:"3.8", s:"Y", t:"Tiered auto-pickup for health, rage stones, hacksilver and loot", src:0},
+    {id:"4.1", s:"Y", t:"Camera sway and shake sliders", src:0},
+    {id:"4.2", s:"Y", t:"Motion blur and film grain sliders", src:0},
+    {id:"4.3", s:"Y", t:"Cinematic smoothing toggle", src:0},
+    {id:"5.1", s:"P", t:"Full-screen flash can be reduced but not eliminated", src:1},
+    {id:"6.1", s:"Y", t:"Vision/Hearing/Motion/Motor presets (Some/Full), reachable from the main menu, with a guided setup on first boot", src:1},
+    {id:"6.2", s:"Y", t:"Lessons Learned codex reviewable at any time; adjustable tutorial density", src:1},
+    {id:"6.3", s:"Y", t:"HUD presets: Default, Immersive, Hidden, Custom", src:0},
+    {id:"6.4", s:"P", t:"Extended puzzle timing, but no general time-limit removal found", src:0},
+    {id:"7.1", s:"Y", t:"Five difficulty modes (Story to God of War), changeable mid-playthrough", src:0},
+    {id:"7.3", s:"P", t:"Evade Assist adds invincibility frames, but is unavailable on the hardest difficulties", src:1},
+    {id:"7.4", s:"P", t:"Miniboss checkpoints preserve progress at health thresholds, but are unavailable on harder difficulties", src:1},
+    {id:"8.1", s:"NA", t:"Single-player", src:0},
+    {id:"8.2", s:"NA", t:"Single-player", src:0},
+    {id:"8.3", s:"NA", t:"Single-player", src:0},
+    {id:"9.1", s:"Y", t:"Guided setup and screen reader on by default at first boot; presets reachable from the main menu", src:1},
+    {id:"9.2", s:"Y", t:"Official, detailed accessibility page", src:0}
+  ]},
+{ name: "The Last of Us Part II",
+  platforms: ["PlayStation", "PC"],
+  sources: [
+    ["PlayStation: The Last of Us Part II accessibility", "https://www.playstation.com/en-us/games/the-last-of-us-part-ii/accessibility/"],
+    ["PlayStation Blog: accessibility features detailed (Jun 2020)", "https://blog.playstation.com/2020/06/09/the-last-of-us-part-ii-accessibility-features-detailed/"],
+    ["Game Accessibility Nexus: Blind/Low Vision review (Jun 2020)", "https://www.gameaccessibilitynexus.com/blog/2020/06/12/blind-low-vision-game-review-the-last-of-us-part-ii/"]
+  ],
+  e: [
+    {id:"1.1", s:"Y", t:"HUD scale and subtitle size options", src:0},
+    {id:"1.2", s:"Y", t:"High Contrast Display mutes the environment and colours allies, enemies and items distinctly; reviewer calls it essential in dark areas and heavy combat", src:2},
+    {id:"1.3", s:"Y", t:"HUD colourblind mode: protanopia, deuteranopia, tritanopia", src:0},
+    {id:"1.4", s:"Y", t:"Screen magnifier (low/medium/high), zoom via touchpad", src:0},
+    {id:"1.5", s:"Y", t:"Text-to-speech reads all on-screen text: menus, prompts, documents, collectibles, weapon info", src:2},
+    {id:"1.6", s:"Y", t:"Enhanced Listen Mode scans for items and enemies with directional, pitch-varied audio cues", src:2},
+    {id:"1.7", s:"Y", t:"Navigation Assistance orients the camera toward story progression", src:0},
+    {id:"1.8", s:"P", t:"Ledge Guard prevents falls, but reviewer notes no audio or vibration cue before laser tripwire traps", src:2},
+    {id:"1.9", s:"Y", t:"Lock-on aim with adjustable strength, plus arc-throw lock-on", src:0},
+    {id:"1.10", s:"Y", t:"Skip puzzle option", src:0},
+    {id:"1.11", s:"Y", t:"Translation prompts (off/on/auto) alongside text-to-speech for in-world documents", src:0},
+    {id:"1.12", s:"P", t:"Text-to-speech reads location details during cutscenes, though there's no full audio-description track", src:2},
+    {id:"2.1", s:"Y", t:"Subtitles: off, story dialogue, or story plus combat dialogue", src:0},
+    {id:"2.2", s:"Y", t:"Awareness indicators, pickup notifications, and dodge prompts", src:0},
+    {id:"2.3", s:"Y", t:"Subtitle speaker names and name-specific colours", src:0},
+    {id:"2.4", s:"Y", t:"Subtitle direction arrow", src:0},
+    {id:"2.5", s:"Y", t:"Size, background, and 5 colour options for subtitles", src:0},
+    {id:"2.6", s:"Y", t:"Damage indicators (HUD spikes toward the direction damage came from); awareness indicators for stealth", src:0},
+    {id:"2.7", s:"Y", t:"Separate combat and guitar vibration cues", src:0},
+    {id:"2.8", s:"Y", t:"Six separate volume sliders: effects, dialogue, music, cinematic, accessibility cues, text-to-speech", src:0},
+    {id:"3.1", s:"Y", t:"Full remapping with 6 schemes, including dedicated Right Hand Only and Left Hand Only presets", src:0},
+    {id:"3.2", s:"Y", t:"Hold-or-toggle options for aiming, listen mode, sprinting, crafting, weapon swap and holding breath", src:0},
+    {id:"3.3", s:"Y", t:"Repeated presses and melee combos convertible to holds", src:0},
+    {id:"3.4", s:"Y", t:"Guitar strumming input has vertical, horizontal or single-tap alternatives", src:0},
+    {id:"3.5", s:"Y", t:"Camera assist (on/off/horizontal/vertical)", src:0},
+    {id:"3.6", s:"Y", t:"Lock-on with adjustable strength; motion (gyro) aiming", src:0},
+    {id:"3.7", s:"Y", t:"Traversal Assistance automates certain difficult jumps", src:0},
+    {id:"3.8", s:"Y", t:"Auto weapon swap and auto pick-up", src:0},
+    {id:"3.9", s:"Y", t:"Controller orientation (default/left/right/upside down) and stick swap for one-handed play", src:0},
+    {id:"4.1", s:"Y", t:"Camera shake slider", src:0},
+    {id:"4.2", s:"Y", t:"Motion blur slider, film grain adjustment, toggleable full-screen effects", src:0},
+    {id:"4.3", s:"Y", t:"Dolly zoom toggle", src:0},
+    {id:"4.4", s:"Y", t:"Field of view and camera distance sliders", src:0},
+    {id:"5.1", s:"Y", t:"HUD flashing toggle", src:0},
+    {id:"6.1", s:"Y", t:"One-click Vision, Hearing and Motor accessibility presets", src:0},
+    {id:"6.2", s:"Y", t:"Adjustable hint frequency and a browsable audio cue glossary", src:0},
+    {id:"6.3", s:"Y", t:"HUD scale, background and colour customisation", src:0},
+    {id:"7.1", s:"Y", t:"Six challenge levels from Very Light to Survivor, plus Custom", src:0},
+    {id:"7.2", s:"Y", t:"Separate sliders for player, enemy, allies, stealth and resource difficulty", src:0},
+    {id:"7.3", s:"Y", t:"Combat Accessibility toggles: enemies don't flank, reduced perception/accuracy, enhanced dodge, invisible while prone, adjustable slow motion", src:0},
+    {id:"7.4", s:"Y", t:"Player difficulty slider adjusts damage taken and checkpoint frequency", src:0},
+    {id:"8.1", s:"NA", t:"Single-player", src:0},
+    {id:"8.2", s:"NA", t:"Single-player", src:0},
+    {id:"8.3", s:"NA", t:"Single-player", src:0},
+    {id:"9.1", s:"Y", t:"Accessibility presets surfaced in settings from first boot", src:0},
+    {id:"9.2", s:"Y", t:"Official, detailed accessibility page", src:0}
   ]}
 ];
 
